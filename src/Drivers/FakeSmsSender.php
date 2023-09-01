@@ -27,7 +27,7 @@ class FakeSmsSender extends Driver
      */
     public function send(): bool
     {
-        if (! self::$successSend) {
+        if (!self::$successSend) {
             $this->webserviceResponse = 'An error happened !';
             $this->success = false;
         } else {
@@ -39,7 +39,7 @@ class FakeSmsSender extends Driver
     }
 
     /**
-     * Return fake balance :D
+     * Return fake balance :D.
      *
      * @return string
      */

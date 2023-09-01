@@ -2,11 +2,11 @@
 
 namespace HoomanMirghasemi\Sms\Abstracts;
 
-use Illuminate\Support\Facades\Event;
 use HoomanMirghasemi\Sms\Contracts\Driver as DriverContract;
 use HoomanMirghasemi\Sms\Contracts\Message;
 use HoomanMirghasemi\Sms\Events\ProviderConnectionFailedEvent;
 use HoomanMirghasemi\Sms\Events\SmsSentEvent;
+use Illuminate\Support\Facades\Event;
 
 abstract class Driver implements DriverContract
 {
@@ -18,21 +18,21 @@ abstract class Driver implements DriverContract
     protected bool $serviceActive = true;
 
     /**
-     * Recipient (mobile number in E164 format)
+     * Recipient (mobile number in E164 format).
      *
      * @param string
      */
     protected string $recipient;
 
     /**
-     * Sender number
+     * Sender number.
      *
      * @param string
      */
     protected string $from;
 
     /**
-     * Message
+     * Message.
      *
      * @var Message|string
      */
@@ -55,9 +55,10 @@ abstract class Driver implements DriverContract
     public $callBackAfterSend;
 
     /**
-     * Add recipient (phone or mobile numbers)
+     * Add recipient (phone or mobile numbers).
      *
-     * @param  string  $recipient
+     * @param string $recipient
+     *
      * @return self
      */
     public function to(string $recipient): self
@@ -78,7 +79,7 @@ abstract class Driver implements DriverContract
     }
 
     /**
-     * Get sender number (from attribute)
+     * Get sender number (from attribute).
      *
      * @return string
      */
@@ -90,7 +91,8 @@ abstract class Driver implements DriverContract
     /**
      * Set related message.
      *
-     * @param  Message  $message
+     * @param Message $message
+     *
      * @return self
      */
     public function message(Message|string $message): self
@@ -139,6 +141,7 @@ abstract class Driver implements DriverContract
      * note: It do not only work correctly when use Notification Queueable.
      *
      * @param $function
+     *
      * @return $this
      */
     public function setCallBack(callable $function): self
@@ -150,7 +153,7 @@ abstract class Driver implements DriverContract
 
     /**
      * Each driver should call this parent method at end of own send.
-     * This fire SmsSentEvent
+     * This fire SmsSentEvent.
      *
      * @see SmsSentEvent
      *

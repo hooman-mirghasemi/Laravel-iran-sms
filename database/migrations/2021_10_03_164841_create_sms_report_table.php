@@ -1,13 +1,12 @@
 <?php
 
+use HoomanMirghasemi\Sms\Models\SmsReport;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use HoomanMirghasemi\Sms\Models\SmsReport;
 
 // migrated up don't touch
-return new class extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
      *

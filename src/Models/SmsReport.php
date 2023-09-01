@@ -2,21 +2,21 @@
 
 namespace HoomanMirghasemi\Sms\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use HoomanMirghasemi\Sms\Database\Factories\SmsReportFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * App\Models\SmsReport
+ * App\Models\SmsReport.
  *
- * @property int $id identifier
- * @property string|null $mobile mobile number sms sent to
- * @property string|null $message sms text
- * @property string|null $from name of sms sender provider
- * @property string|null $number sender number
- * @property string|null $web_service_response sms provider webservice response
- * @property bool $success boolean: successful webservice response or fail
- * @property \Illuminate\Support\Carbon|null $created_at when this record created
- * @property \Illuminate\Support\Carbon|null $updated_at the record last updated time
+ * @property int                             $id                   identifier
+ * @property string|null                     $mobile               mobile number sms sent to
+ * @property string|null                     $message              sms text
+ * @property string|null                     $from                 name of sms sender provider
+ * @property string|null                     $number               sender number
+ * @property string|null                     $web_service_response sms provider webservice response
+ * @property bool                            $success              boolean: successful webservice response or fail
+ * @property \Illuminate\Support\Carbon|null $created_at           when this record created
+ * @property \Illuminate\Support\Carbon|null $updated_at           the record last updated time
  *
  * @method static \Illuminate\Database\Eloquent\Builder|SmsReport newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|SmsReport newQuery()
@@ -31,13 +31,15 @@ class SmsReport extends \Illuminate\Database\Eloquent\Model
     public const TABLE = 'sms_reports';
 
     /**
-     * The model table name in database
+     * The model table name in database.
+     *
      * @var string
      */
     protected $table = self::TABLE;
 
     /**
      * An array of attribute names that are mass assignable in the database.
+     *
      * @var string[]
      */
     protected $fillable = [
@@ -46,7 +48,7 @@ class SmsReport extends \Illuminate\Database\Eloquent\Model
         'from',
         'number',
         'web_service_response',
-        'success'
+        'success',
     ];
 
     protected $casts = [

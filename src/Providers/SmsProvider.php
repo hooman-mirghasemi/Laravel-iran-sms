@@ -2,12 +2,12 @@
 
 namespace HoomanMirghasemi\Sms\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use Kavenegar\KavenegarApi;
 use HoomanMirghasemi\Sms\Drivers\FakeSmsSender;
 use HoomanMirghasemi\Sms\Drivers\Kavenegar;
 use HoomanMirghasemi\Sms\SmsManager;
 use HoomanMirghasemi\Sms\VoiceCallManager;
+use Illuminate\Support\ServiceProvider;
+use Kavenegar\KavenegarApi;
 
 class SmsProvider extends ServiceProvider
 {
@@ -74,7 +74,8 @@ class SmsProvider extends ServiceProvider
     private function mergeConfigFiles(): self
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../../config/sms.php', 'sms'
+            __DIR__.'/../../config/sms.php',
+            'sms'
         );
 
         return $this;

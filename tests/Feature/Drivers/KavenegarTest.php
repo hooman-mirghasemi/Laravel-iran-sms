@@ -2,10 +2,10 @@
 
 namespace HoomanMirghasemi\Sms\Tests\Feature\Drivers;
 
-use Mockery\MockInterface;
 use HoomanMirghasemi\Sms\Drivers\Kavenegar;
 use HoomanMirghasemi\Sms\Message;
 use HoomanMirghasemi\Sms\Tests\TestCase;
+use Mockery\MockInterface;
 
 class KavenegarTest extends TestCase
 {

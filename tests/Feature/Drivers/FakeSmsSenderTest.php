@@ -21,10 +21,10 @@ class FakeSmsSenderTest extends TestCase
         $this->assertFalse($result);
 
         $this->assertDatabaseHas(SmsReport::class, [
-            'mobile' => $this->mobile,
+            'mobile'  => $this->mobile,
             'success' => false,
             'message' => 'Test fake sms sender',
-            'from' => 'fakesmssender',
+            'from'    => 'fakesmssender',
         ]);
     }
 
@@ -39,10 +39,10 @@ class FakeSmsSenderTest extends TestCase
         $this->assertTrue($result);
 
         $this->assertDatabaseHas(SmsReport::class, [
-            'mobile' => $this->mobile,
+            'mobile'  => $this->mobile,
             'success' => true,
             'message' => 'Test fake sms sender',
-            'from' => 'fakesmssender',
+            'from'    => 'fakesmssender',
         ]);
     }
 }

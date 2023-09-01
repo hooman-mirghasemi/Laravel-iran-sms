@@ -2,8 +2,8 @@
 
 namespace HoomanMirghasemi\Sms\Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use HoomanMirghasemi\Sms\Models\SmsReport;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SmsReportFactory extends Factory
 {
@@ -24,12 +24,12 @@ class SmsReportFactory extends Factory
         $drivers = ['kavehnegar', 'fakesmssender'];
 
         return [
-            'mobile' => '+98'.substr($this->faker->mobileNumber(), 1),
-            'message' => $this->faker->paragraph(),
-            'from' => $drivers[array_rand($drivers)],
-            'number' => $this->faker->phoneNumber,
+            'mobile'               => '+98'.substr($this->faker->mobileNumber(), 1),
+            'message'              => $this->faker->paragraph(),
+            'from'                 => $drivers[array_rand($drivers)],
+            'number'               => $this->faker->phoneNumber,
             'web_service_response' => $this->faker->paragraph(),
-            'success' => $this->faker->boolean,
+            'success'              => $this->faker->boolean,
         ];
     }
 }

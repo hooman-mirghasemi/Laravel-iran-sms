@@ -11,7 +11,8 @@ class DbLogListener
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param object $event
+     *
      * @return void
      */
     public function handle(SmsEvent $event): void
