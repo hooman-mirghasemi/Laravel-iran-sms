@@ -2,15 +2,16 @@
 
 namespace HoomanMirghasemi\Sms\Tests;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Orchestra\Testbench\TestCase as BaseTestCase;
 use HoomanMirghasemi\Sms\Providers\EventServiceProvider;
 use HoomanMirghasemi\Sms\Providers\RouteServiceProvider;
 use HoomanMirghasemi\Sms\Providers\SmsProvider;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
     use RefreshDatabase;
+
     protected function getPackageProviders($app): array
     {
         return [
@@ -28,13 +29,12 @@ abstract class TestCase extends BaseTestCase
         // Setup default database to use sqlite :memory:
         $app['config']->set('database.default', 'testSmsDb');
         $app['config']->set('database.connections.testSmsDb', [
-            'driver'   => 'sqlite',
-            'database' => ':memory:',
-            'prefix'   => '',
+            'driver'                  => 'sqlite',
+            'database'                => ':memory:',
+            'prefix'                  => '',
             'foreign_key_constraints' => true,
         ]);
 
         $app['config']->set('sms.driver', 'fake');
     }
-
 }

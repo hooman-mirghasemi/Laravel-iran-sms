@@ -5,7 +5,7 @@ namespace HoomanMirghasemi\Sms\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * Class VoiceCall
+ * Class VoiceCall.
  *
  * @method static to(string $mobileNumber);
  */

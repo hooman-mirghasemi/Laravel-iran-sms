@@ -11,8 +11,8 @@
 |
 */
 
-use Illuminate\Support\Facades\Route;
 use HoomanMirghasemi\Sms\Http\Controllers\Web\SmsController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('sms/get-sms-list', [SmsController::class, 'index'])
     ->name('sms.index');

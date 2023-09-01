@@ -2,11 +2,11 @@
 
 namespace HoomanMirghasemi\Sms\Facades;
 
-use Illuminate\Support\Facades\Facade;
 use HoomanMirghasemi\Sms\Contracts\Message;
+use Illuminate\Support\Facades\Facade;
 
 /**
- * Class Sms
+ * Class Sms.
  *
  * @method static to(string $mobileNumber);
  * @method static message(Message|string $message);

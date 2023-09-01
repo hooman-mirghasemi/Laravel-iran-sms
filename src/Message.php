@@ -7,7 +7,7 @@ use HoomanMirghasemi\Sms\Contracts\Message as MessageContract;
 class Message implements MessageContract
 {
     /**
-     * Plain text message
+     * Plain text message.
      *
      * @param string
      */
@@ -20,13 +20,13 @@ class Message implements MessageContract
      */
     protected array $template = [
         'identifier' => null,
-        'params' => null,
+        'params'     => null,
     ];
 
     /**
-     * Message constructor
+     * Message constructor.
      *
-     * @param  string  $message
+     * @param string $message
      */
     public function __construct(string $message)
     {
@@ -46,8 +46,9 @@ class Message implements MessageContract
     /**
      * Retrieve string format of message.
      *
-     * @param  string  $templateIdentifier
-     * @param  array  $params
+     * @param string $templateIdentifier
+     * @param array  $params
+     *
      * @return self
      */
     public function useTemplateIfSupports(string $templateIdentifier, array $params = []): self
@@ -63,7 +64,7 @@ class Message implements MessageContract
      */
     public function usesTemplate(): bool
     {
-        return ! is_null($this->template['identifier']);
+        return !is_null($this->template['identifier']);
     }
 
     /**

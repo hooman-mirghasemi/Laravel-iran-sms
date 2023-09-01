@@ -2,12 +2,12 @@
 
 namespace HoomanMirghasemi\Sms\Tests\Feature;
 
-use Mockery\MockInterface;
 use HoomanMirghasemi\Sms\Drivers\FakeSmsSender;
 use HoomanMirghasemi\Sms\Drivers\Kavenegar;
 use HoomanMirghasemi\Sms\Models\SmsReport;
 use HoomanMirghasemi\Sms\SmsManager;
 use HoomanMirghasemi\Sms\Tests\TestCase;
+use Mockery\MockInterface;
 
 class SmsTest extends TestCase
 {
@@ -28,16 +28,16 @@ class SmsTest extends TestCase
             ->send();
         $this->assertDatabaseCount(SmsReport::class, 2);
         $this->assertDatabaseHas(SmsReport::class, [
-            'mobile' => $this->mobile,
+            'mobile'  => $this->mobile,
             'success' => true,
             'message' => 'Test successful send sms.',
-            'from' => 'fakesmssender',
+            'from'    => 'fakesmssender',
         ]);
         $this->assertDatabaseHas(SmsReport::class, [
-            'mobile' => $this->mobile,
+            'mobile'  => $this->mobile,
             'success' => false,
             'message' => 'Test failed send sms.',
-            'from' => 'fakesmssender',
+            'from'    => 'fakesmssender',
         ]);
     }
 
