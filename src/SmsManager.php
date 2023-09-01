@@ -2,10 +2,10 @@
 
 namespace HoomanMirghasemi\Sms;
 
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Manager;
 use HoomanMirghasemi\Sms\Drivers\FakeSmsSender;
 use HoomanMirghasemi\Sms\Drivers\Kavenegar;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Manager;
 
 class SmsManager extends Manager
 {
@@ -46,7 +46,8 @@ class SmsManager extends Manager
     /**
      * Set the default sms driver name.
      *
-     * @param  string  $name
+     * @param string $name
+     *
      * @return void
      */
     public function setDefaultDriver(string $name): void

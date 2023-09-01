@@ -2,10 +2,10 @@
 
 namespace HoomanMirghasemi\Sms;
 
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Manager;
 use HoomanMirghasemi\Sms\Drivers\Avanak;
 use HoomanMirghasemi\Sms\Drivers\FakeSmsSender;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Manager;
 
 class VoiceCallManager extends Manager
 {
@@ -46,7 +46,8 @@ class VoiceCallManager extends Manager
     /**
      * Set the default sms driver name.
      *
-     * @param  string  $name
+     * @param string $name
+     *
      * @return void
      */
     public function setDefaultDriver($name): void

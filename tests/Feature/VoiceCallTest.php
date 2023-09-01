@@ -4,8 +4,8 @@ namespace HoomanMirghasemi\Sms\Tests\Feature;
 
 use HoomanMirghasemi\Sms\Drivers\FakeSmsSender;
 use HoomanMirghasemi\Sms\Models\SmsReport;
-use HoomanMirghasemi\Sms\VoiceCallManager;
 use HoomanMirghasemi\Sms\Tests\TestCase;
+use HoomanMirghasemi\Sms\VoiceCallManager;
 
 class VoiceCallTest extends TestCase
 {
@@ -24,12 +24,12 @@ class VoiceCallTest extends TestCase
             ->send();
         $this->assertDatabaseCount(SmsReport::class, 2);
         $this->assertDatabaseHas(SmsReport::class, [
-            'mobile' => '+9800',
+            'mobile'  => '+9800',
             'success' => 1,
             'message' => 'Test successful send voice call.',
         ]);
         $this->assertDatabaseHas(SmsReport::class, [
-            'mobile' => '+9800',
+            'mobile'  => '+9800',
             'success' => 0,
             'message' => 'Test failed send voice call.',
         ]);

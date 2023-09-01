@@ -5,9 +5,10 @@ namespace HoomanMirghasemi\Sms\Contracts;
 interface Driver
 {
     /**
-     * Add recipient (mobile numbers)
+     * Add recipient (mobile numbers).
      *
-     * @param  string  $recipient
+     * @param string $recipient
+     *
      * @return self
      */
     public function to(string $recipient): self;
@@ -15,7 +16,8 @@ interface Driver
     /**
      * Set related message.
      *
-     * @param  Message  $message
+     * @param Message $message
+     *
      * @return self
      */
     public function message(Message $message): self;

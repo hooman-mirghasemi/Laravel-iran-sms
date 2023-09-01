@@ -2,8 +2,8 @@
 
 namespace HoomanMirghasemi\Sms\Drivers;
 
-use Kavenegar\KavenegarApi;
 use HoomanMirghasemi\Sms\Abstracts\Driver;
+use Kavenegar\KavenegarApi;
 
 class Kavenegar extends Driver
 {
@@ -41,7 +41,6 @@ class Kavenegar extends Driver
                     null,
                     $token10,
                     $token20
-
                 );
             } else {
                 $result = $this->kavenegarApi->Send(null, $this->recipient, $this->message->toString());
@@ -65,6 +64,7 @@ class Kavenegar extends Driver
         if ($spaceCount > $maxSpace) {
             $string = strrev(preg_replace('/ /', '-', strrev($string), $spaceCount - $maxSpace));
         }
+
         return $string;
     }
 }

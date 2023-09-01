@@ -3,9 +3,9 @@
 namespace HoomanMirghasemi\Sms\Drivers;
 
 use Exception;
+use HoomanMirghasemi\Sms\Abstracts\Driver;
 use Illuminate\Support\Facades\Log;
 use SoapClient;
-use HoomanMirghasemi\Sms\Abstracts\Driver;
 
 class SmsOnline extends Driver
 {
@@ -26,7 +26,7 @@ class SmsOnline extends Driver
      */
     public function send(): bool
     {
-        if (! $this->serviceActive) {
+        if (!$this->serviceActive) {
             parent::failedConnectToProvider();
 
             return false;
@@ -34,13 +34,13 @@ class SmsOnline extends Driver
         $response = $this->soapClient->SendSms([
             'username' => data_get($this->settings, 'username'),
             'password' => data_get($this->settings, 'password'), // Credientials
-            'from' => data_get($this->settings, 'from'),
-            'to' => [str_replace('+98', '', $this->recipient)],
-            'text' => $this->getMessage(),
-            'isflash' => false,
-            'udh' => '',
-            'recId' => [0],
-            'status' => [0],
+            'from'     => data_get($this->settings, 'from'),
+            'to'       => [str_replace('+98', '', $this->recipient)],
+            'text'     => $this->getMessage(),
+            'isflash'  => false,
+            'udh'      => '',
+            'recId'    => [0],
+            'status'   => [0],
         ]);
         if ($response->SendSmsResult != 1) {
             $this->webserviceResponse = 'An error occured';
@@ -61,7 +61,7 @@ class SmsOnline extends Driver
      */
     public function getBalance(): string
     {
-        if (! $this->serviceActive) {
+        if (!$this->serviceActive) {
             return 'ماژول پیامک آنلاین اس ام اس برنامه غیر فعال می باشد.';
         }
 
@@ -78,7 +78,7 @@ class SmsOnline extends Driver
     }
 
     /**
-     * Return error messages for SmsMagfa
+     * Return error messages for SmsMagfa.
      *
      * @return array
      */

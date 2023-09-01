@@ -3,11 +3,11 @@
 namespace HoomanMirghasemi\Sms\Drivers;
 
 use Exception;
+use HoomanMirghasemi\Sms\Abstracts\Driver;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use SoapClient;
 use SoapFault;
-use HoomanMirghasemi\Sms\Abstracts\Driver;
 
 class Magfa extends Driver
 {
@@ -28,7 +28,7 @@ class Magfa extends Driver
      */
     public function send(): bool
     {
-        if (! $this->serviceActive) {
+        if (!$this->serviceActive) {
             parent::failedConnectToProvider();
 
             return false;
@@ -53,7 +53,7 @@ class Magfa extends Driver
      */
     public function getBalance(): string
     {
-        if (! $this->serviceActive) {
+        if (!$this->serviceActive) {
             return 'وب سرویس مگفا با مشکل مواجه شده.';
         }
 
@@ -75,11 +75,11 @@ class Magfa extends Driver
     {
         try {
             $this->soapClient = new SoapClient(data_get($this->settings, 'wsdl_url'), [
-                'login' => data_get($this->settings, 'username').'/'.data_get($this->settings, 'domain'),
-                'password' => data_get($this->settings, 'password'),
-                'cache_wsdl' => WSDL_CACHE_NONE, // -No WSDL Cache
+                'login'       => data_get($this->settings, 'username').'/'.data_get($this->settings, 'domain'),
+                'password'    => data_get($this->settings, 'password'),
+                'cache_wsdl'  => WSDL_CACHE_NONE, // -No WSDL Cache
                 'compression' => (SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP | 5), // -Compression *
-                'trace' => App::environment(['local', 'staging', 'testing']), // -Optional (debug)
+                'trace'       => App::environment(['local', 'staging', 'testing']), // -Optional (debug)
             ]);
         } catch (SoapFault $soapFault) {
             Log::error('magfa sms code: '.$soapFault->getCode().' message: '.$soapFault->getMessage());
@@ -88,7 +88,7 @@ class Magfa extends Driver
     }
 
     /**
-     * Return error messages for SmsMagfa
+     * Return error messages for SmsMagfa.
      *
      * @return array
      */

@@ -3,10 +3,10 @@
 namespace HoomanMirghasemi\Sms\Drivers;
 
 use Exception;
+use HoomanMirghasemi\Sms\Abstracts\Driver;
 use Illuminate\Support\Facades\Log;
 use SoapClient;
 use SoapFault;
-use HoomanMirghasemi\Sms\Abstracts\Driver;
 
 class Avanak extends Driver
 {
@@ -35,14 +35,14 @@ class Avanak extends Driver
      */
     public function send(): bool
     {
-        if (! $this->serviceActive) {
+        if (!$this->serviceActive) {
             parent::failedConnectToProvider();
 
             return false;
         }
         $this->params['text'] = $this->getMessage();
         $this->params['number'] = $this->recipient;
-        if (! str_starts_with($this->params['number'], '+98')) {
+        if (!str_starts_with($this->params['number'], '+98')) {
             return false;
         }
         // for sending to avanak change number format
@@ -72,7 +72,7 @@ class Avanak extends Driver
      */
     public function getBalance(): string
     {
-        if (! $this->serviceActive) {
+        if (!$this->serviceActive) {
             return 'وب سرویس آوانک با مشکل مواجه شده.';
         }
 

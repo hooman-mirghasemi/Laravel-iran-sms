@@ -2,10 +2,10 @@
 
 namespace HoomanMirghasemi\Sms\Providers;
 
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use HoomanMirghasemi\Sms\Events\ProviderConnectionFailedEvent;
 use HoomanMirghasemi\Sms\Events\SmsSentEvent;
 use HoomanMirghasemi\Sms\Listeners\DbLogListener;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
 {

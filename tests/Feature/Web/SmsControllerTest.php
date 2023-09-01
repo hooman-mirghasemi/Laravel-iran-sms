@@ -6,7 +6,6 @@ use HoomanMirghasemi\Sms\Tests\TestCase;
 
 class SmsControllerTest extends TestCase
 {
-
     public function testIndexSuccess()
     {
         $response = $this->get(route('sms.index'));
