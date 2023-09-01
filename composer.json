@@ -28,6 +28,7 @@
         "doctrine/dbal": "3.6.5"
     },
     "require-dev": {
+        "phpunit/phpunit": "^9.6",
         "orchestra/testbench": "^7.28.2|^8.8.3",
         "laravel/legacy-factories": "^1.3"
     },
