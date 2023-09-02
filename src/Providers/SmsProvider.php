@@ -58,7 +58,7 @@ class SmsProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
         $this->publishes([
-            __DIR__.'/../../database/migrations/' => database_path('/migrations')
+            __DIR__.'/../../database/migrations/' => database_path('/migrations'),
         ], 'iran-sms-migrations');
 
         return $this;
@@ -86,7 +86,7 @@ class SmsProvider extends ServiceProvider
         );
 
         $this->publishes([
-            __DIR__.'/../../config/sms.php' => config_path('sms.php')
+            __DIR__.'/../../config/sms.php' => config_path('sms.php'),
         ], 'iran-sms-config');
     }
 }
