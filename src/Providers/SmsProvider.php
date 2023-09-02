@@ -18,8 +18,7 @@ class SmsProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->loadMigrations()
-            ->loadViews();
+        $this->loadMigrations()->loadViews();
     }
 
     /**
@@ -58,6 +57,10 @@ class SmsProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
+        $this->publishes([
+            __DIR__.'/../../database/migrations/' => database_path('/migrations')
+        ], 'iran-sms-migrations');
+
         return $this;
     }
 
@@ -68,16 +71,22 @@ class SmsProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__.'/../Resources/views', 'sms');
 
+        $this->publishes([
+            __DIR__.'/../Resources/views' => base_path('resources/views/vendor/sms'),
+        ], 'iran-sms-views');
+
         return $this;
     }
 
-    private function mergeConfigFiles(): self
+    private function mergeConfigFiles(): void
     {
         $this->mergeConfigFrom(
             __DIR__.'/../../config/sms.php',
             'sms'
         );
 
-        return $this;
+        $this->publishes([
+            __DIR__.'/../../config/sms.php' => config_path('sms.php')
+        ], 'iran-sms-config');
     }
 }
