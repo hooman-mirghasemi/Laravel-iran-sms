@@ -137,21 +137,6 @@ abstract class Driver implements DriverContract
     }
 
     /**
-     * Call back use for get result of sending.
-     * note: It do not only work correctly when use Notification Queueable.
-     *
-     * @param $function
-     *
-     * @return $this
-     */
-    public function setCallBack(callable $function): self
-    {
-        $this->callBackAfterSend = $function;
-
-        return $this;
-    }
-
-    /**
      * Each driver should call this parent method at end of own send.
      * This fire SmsSentEvent.
      *

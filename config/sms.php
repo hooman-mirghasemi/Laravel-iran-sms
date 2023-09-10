@@ -13,7 +13,7 @@ return [
     |
     */
     'driver'            => env('SMS_DRIVER', 'fake'),
-    'driver_voice_call' => 'fake',
+    'driver_voice_call' => env('VOICE_CALL_DRIVER', 'fake'),
 
     /*
     |--------------------------------------------------------------------------
