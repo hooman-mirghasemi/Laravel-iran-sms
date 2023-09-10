@@ -4,8 +4,8 @@ namespace HoomanMirghasemi\Sms\Tests\Feature\Drivers;
 
 use HoomanMirghasemi\Sms\Drivers\SmsOnline;
 use HoomanMirghasemi\Sms\Models\SmsReport;
-use Mockery\MockInterface;
 use HoomanMirghasemi\Sms\Tests\TestCase;
+use Mockery\MockInterface;
 
 class SmsOnlineTest extends TestCase
 {
@@ -21,16 +21,14 @@ class SmsOnlineTest extends TestCase
             ->send();
         $this->assertFalse($result);
         $this->assertDatabaseHas(SmsReport::class, [
-            'mobile' => $this->mobile,
+            'mobile'  => $this->mobile,
             'success' => false,
             'message' => 'Test smsOnline sms',
         ]);
     }
 
-
     public function testSuccessSend()
     {
-
         $smsOnlineStub = $this->partialMock(SmsOnline::class, function (MockInterface $mock) {
             $mock->shouldReceive('send')
                 ->once()
