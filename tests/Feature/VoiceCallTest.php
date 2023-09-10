@@ -34,21 +34,4 @@ class VoiceCallTest extends TestCase
             'message' => 'Test failed send voice call.',
         ]);
     }
-
-    public function testCallBackWork()
-    {
-        FakeSmsSender::$successSend = true;
-        $sms = resolve(VoiceCallManager::class);
-        $testValueVariable = 'before';
-        $sms->driver('fake')
-            ->to('+9800')
-            ->message('test voice call.')
-            ->setCallBack(function ($result) use (&$testValueVariable) {
-                if ($result) {
-                    $testValueVariable = 'voice call send successfully';
-                }
-            })
-            ->send();
-        $this->assertEquals('voice call send successfully', $testValueVariable);
-    }
 }

@@ -28,7 +28,7 @@ class SmsController extends Controller
          *
          * @middlewares(web)
          */
-        if (config('app.env') == 'production') {
+        if (config('sms.dont_show_sms_list_page_condition')()) {
             abort(404);
         }
         Paginator::useBootstrap();

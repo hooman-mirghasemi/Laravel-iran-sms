@@ -2,8 +2,11 @@
 
 namespace HoomanMirghasemi\Sms\Providers;
 
+use HoomanMirghasemi\Sms\Drivers\Avanak;
 use HoomanMirghasemi\Sms\Drivers\FakeSmsSender;
 use HoomanMirghasemi\Sms\Drivers\Kavenegar;
+use HoomanMirghasemi\Sms\Drivers\Magfa;
+use HoomanMirghasemi\Sms\Drivers\SmsOnline;
 use HoomanMirghasemi\Sms\SmsManager;
 use HoomanMirghasemi\Sms\VoiceCallManager;
 use Illuminate\Support\ServiceProvider;
@@ -18,8 +21,7 @@ class SmsProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->loadMigrations()
-            ->loadViews();
+        $this->loadMigrations()->loadViews();
     }
 
     /**
@@ -52,11 +54,30 @@ class SmsProvider extends ServiceProvider
 
             return new Kavenegar($config, $kavenegarApi);
         });
+
+        $this->app->bind(Magfa::class, function () {
+            $config = config('sms.drivers.magfa') ?? [];
+            return new Magfa($config);
+        });
+
+        $this->app->bind(SmsOnline::class, function () {
+            $config = config('sms.drivers.smsonline') ?? [];
+            return new SmsOnline($config);
+        });
+
+        $this->app->bind(Avanak::class, function () {
+            $config = config('sms.drivers.avanak') ?? [];
+            return new Avanak($config);
+        });
     }
 
     private function loadMigrations(): self
     {
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+
+        $this->publishes([
+            __DIR__.'/../../database/migrations/' => database_path('/migrations'),
+        ], 'iran-sms-migrations');
 
         return $this;
     }
@@ -68,16 +89,22 @@ class SmsProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__.'/../Resources/views', 'sms');
 
+        $this->publishes([
+            __DIR__.'/../Resources/views' => base_path('resources/views/vendor/sms'),
+        ], 'iran-sms-views');
+
         return $this;
     }
 
-    private function mergeConfigFiles(): self
+    private function mergeConfigFiles(): void
     {
         $this->mergeConfigFrom(
             __DIR__.'/../../config/sms.php',
             'sms'
         );
 
-        return $this;
+        $this->publishes([
+            __DIR__.'/../../config/sms.php' => config_path('sms.php'),
+        ], 'iran-sms-config');
     }
 }

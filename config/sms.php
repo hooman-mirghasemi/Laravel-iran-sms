@@ -13,7 +13,7 @@ return [
     |
     */
     'driver'            => env('SMS_DRIVER', 'fake'),
-    'driver_voice_call' => 'fake',
+    'driver_voice_call' => env('VOICE_CALL_DRIVER', 'fake'),
 
     /*
     |--------------------------------------------------------------------------
@@ -27,30 +27,33 @@ return [
     */
     'drivers' => [
         'fake' => [
-            'from' => '1111111111',
+            'from' => env('FAKE_SENDER_NUMBER', '111111'),
         ],
         'kavenegar' => [
-            'from'   => '',
+            'from'   => env('KAVENEGAR_SENDER_NUMBER', ''),
             'apiKey' => env('KAVENEGAR_API_KEY'),
         ],
         'magfa' => [
             'username' => env('SMS_MAGFA_USERNAME'),
             'password' => env('SMS_MAGFA_PASSWORD'),
             'domain'   => env('SMS_MAGFA_DOMAIN'),
-            'from'     => env('SMS_MAGFA_SENDER_NUMBER'),
+            'from'     => env('SMS_MAGFA_SENDER_NUMBER', ''),
             'wsdl_url' => 'https://sms.magfa.com/api/soap/sms/v2/server?wsdl',
         ],
         'smsonline' => [
             'username' => env('SMS_ONLINE_USERNAME'),
             'password' => env('SMS_ONLINE_PASSWORD'),
-            'from'     => env('SMS_ONLINE_SENDER_NUMBER'),
+            'from'     => env('SMS_ONLINE_SENDER_NUMBER', ''),
             'wsdl_url' => 'http://www.linepayamak.ir/Post/Send.asmx?wsdl',
         ],
         'avanak' => [
             'username' => env('VOICE_AVANAK_USERNAME'),
             'password' => env('VOICE_AVANAK_PASSWORD'),
-            'from'     => env('VOICE_AVANAK_SENDER_NUMBER'),
+            'from'     => env('VOICE_AVANAK_SENDER_NUMBER', ''),
             'wsdl_url' => 'http://portal.avanak.ir/webservice3.asmx?WSDL',
         ],
     ],
+    'dont_show_sms_list_page_condition' => function() {
+        return config('app.env') == 'production';
+    }
 ];
