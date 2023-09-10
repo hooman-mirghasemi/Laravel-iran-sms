@@ -2,8 +2,11 @@
 
 namespace HoomanMirghasemi\Sms\Providers;
 
+use HoomanMirghasemi\Sms\Drivers\Avanak;
 use HoomanMirghasemi\Sms\Drivers\FakeSmsSender;
 use HoomanMirghasemi\Sms\Drivers\Kavenegar;
+use HoomanMirghasemi\Sms\Drivers\Magfa;
+use HoomanMirghasemi\Sms\Drivers\SmsOnline;
 use HoomanMirghasemi\Sms\SmsManager;
 use HoomanMirghasemi\Sms\VoiceCallManager;
 use Illuminate\Support\ServiceProvider;
@@ -50,6 +53,21 @@ class SmsProvider extends ServiceProvider
             $kavenegarApi = new KavenegarApi($config['apiKey']);
 
             return new Kavenegar($config, $kavenegarApi);
+        });
+
+        $this->app->bind(Magfa::class, function () {
+            $config = config('sms.drivers.magfa') ?? [];
+            return new Magfa($config);
+        });
+
+        $this->app->bind(SmsOnline::class, function () {
+            $config = config('sms.drivers.smsonline') ?? [];
+            return new SmsOnline($config);
+        });
+
+        $this->app->bind(Avanak::class, function () {
+            $config = config('sms.drivers.avanak') ?? [];
+            return new Avanak($config);
         });
     }
 

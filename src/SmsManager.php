@@ -4,6 +4,8 @@ namespace HoomanMirghasemi\Sms;
 
 use HoomanMirghasemi\Sms\Drivers\FakeSmsSender;
 use HoomanMirghasemi\Sms\Drivers\Kavenegar;
+use HoomanMirghasemi\Sms\Drivers\Magfa;
+use HoomanMirghasemi\Sms\Drivers\SmsOnline;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Manager;
 
@@ -28,6 +30,27 @@ class SmsManager extends Manager
     {
         return $this->container->make(FakeSmsSender::class);
     }
+
+    /**
+     * Create an instance of the smsOnline sms sender driver.
+     *
+     * @return SmsOnline
+     */
+    protected function createSmsOnlineDriver()
+    {
+        return $this->container->make(SmsOnline::class);
+    }
+
+    /**
+     * Create an instance of the magfa sms sender driver.
+     *
+     * @return Magfa
+     */
+    protected function createMagfaDriver()
+    {
+        return $this->container->make(Magfa::class);
+    }
+
 
     /**
      * Get the default sms driver name.

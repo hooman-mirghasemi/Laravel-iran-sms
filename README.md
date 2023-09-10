@@ -13,10 +13,15 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/9e2415e0cfcfe2120a9e/maintainability)](https://codeclimate.com/github/hooman-mirghasemi/Laravel-iran-sms/maintainability)
 [![Quality Score][ico-code-quality]][link-code-quality]
 
-This is a Laravel Package for Sms Senders Integration. This package supports `Laravel 9+`.
+This is a Laravel Package for Sms Senders Integration. This package supports `Laravel 9+` But it may work with laravel 8 or 7 (not tested).
 
-
-> This packages works with multiple drivers, and you can create custom drivers and send your code as a pull request if you can't find them in the [current drivers list](#list-of-available-drivers) (below list).
+> Benefits of this package:
+> - Multiple drivers
+> - Support create custom drivers
+> - Have Fake build in driver, it can send success or failure sms/voice call message. (Can use in development and testing modes)
+> - Store sms reports in database
+> - Have a tools in only development mode in http://localhost/sms/get-sms-list (Your frontend developer can use it for access latest sms send with fake driver for example needs to otp codes, when he/she is 
+> developing some parts like forgot password)
 
 - [داکیومنت فارسی(به زودی)][link-fa]
 
@@ -40,12 +45,16 @@ This is a Laravel Package for Sms Senders Integration. This package supports `La
 
 # List of available drivers
 
-- [fake sms sender](#fake-sms) :heavy_check_mark:
-- [Kavenegar](https://kavenegar.com/) :heavy_check_mark:
-- [Magfa](https://magfa.com/) :heavy_check_mark:
-- [Sms Online](https://smsonline.ir/) :heavy_check_mark:
+- [fake sms sender](#fake-sms) :heavy_check_mark: (Both: Voice call/Sms)
+- [Avanak](https://www.avanak.ir/) :heavy_check_mark: (Voice call driver)
+- [Kavenegar](https://kavenegar.com/) :heavy_check_mark: (Sms)
+- [Magfa](https://magfa.com/) :heavy_check_mark: (Sms)
+- [Sms Online](https://smsonline.ir/) :heavy_check_mark: (Sms)
 
-Note: to use mafa or sms online you should install soap client.
+Note: for using each of them check config file and use the needed env in your env file
+like username/password or api key depend on witch driver you use.
+
+Note: to use magfa/sms online/avanak you should install php ext-soap.
 
 
 > you can create your own custom drivers if it does not exist in the list, read the `Create custom drivers` section.

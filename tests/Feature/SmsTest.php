@@ -41,23 +41,6 @@ class SmsTest extends TestCase
         ]);
     }
 
-    public function testCallBackWork()
-    {
-        FakeSmsSender::$successSend = true;
-        $sms = resolve(SmsManager::class);
-        $testValueVariable = 'before';
-        $sms->driver('fake')
-            ->to($this->mobile)
-            ->message('test sms')
-            ->setCallBack(function ($result) use (&$testValueVariable) {
-                if ($result) {
-                    $testValueVariable = 'sms send successfully';
-                }
-            })
-            ->send();
-        $this->assertEquals('sms send successfully', $testValueVariable);
-    }
-
     public function testKavenegarSuccessSend()
     {
         $kavenegarStub = $this->partialMock(Kavenegar::class, function (MockInterface $mock) {

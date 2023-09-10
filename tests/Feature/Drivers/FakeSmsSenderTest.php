@@ -8,7 +8,7 @@ use HoomanMirghasemi\Sms\Tests\TestCase;
 
 class FakeSmsSenderTest extends TestCase
 {
-    private string $mobile = '+989354223736';
+    private string $mobile = '+98912123456';
 
     public function testFailedSendSms()
     {

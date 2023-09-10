@@ -52,8 +52,6 @@ abstract class Driver implements DriverContract
      */
     protected bool|null $success = null;
 
-    public $callBackAfterSend;
-
     /**
      * Add recipient (phone or mobile numbers).
      *
@@ -148,10 +146,6 @@ abstract class Driver implements DriverContract
     {
         if ($this->success === null) {
             throw new \BadMethodCallException('Abstract driver send method should only call in end of drivers with result of send');
-        }
-
-        if ($this->callBackAfterSend != null) {
-            ($this->callBackAfterSend)($this->success);
         }
 
         $smsSentEvent = new SmsSentEvent($this);
