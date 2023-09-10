@@ -153,6 +153,25 @@ public function toSms(User $notifiable)
         ->message($message);
 }
 ```
+#### Change condition of showing sms list page
+
+By default when your laravel application is in production mode this page will response 
+404. But if you want have a diffrent condition publish config file and change this part
+like this code or some thing you want:
+
+```php
+// default config is:
+'dont_show_sms_list_page_condition' => function() {
+    return config('app.env') == 'production';
+}
+
+// you can check domain:
+'dont_show_sms_list_page_condition' => function() {
+    return config('app.env') == 'production' || config('app.url') == 'https://yourproductiondomain.com';
+}
+```
+now if you forgot to set app.env to production or temporary change it, it will be safe
+and return 404.
 
 #### Create custom drivers:
 Option A:
