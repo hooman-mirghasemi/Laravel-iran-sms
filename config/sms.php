@@ -53,7 +53,7 @@ return [
             'wsdl_url' => 'http://portal.avanak.ir/webservice3.asmx?WSDL',
         ],
     ],
-    'dont_show_sms_list_page_condition' => function() {
+    'dont_show_sms_list_page_condition' => function () {
         return config('app.env') == 'production';
-    }
+    },
 ];

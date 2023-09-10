@@ -51,7 +51,6 @@ class SmsManager extends Manager
         return $this->container->make(Magfa::class);
     }
 
-
     /**
      * Get the default sms driver name.
      *

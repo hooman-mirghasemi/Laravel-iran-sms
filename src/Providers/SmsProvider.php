@@ -57,16 +57,19 @@ class SmsProvider extends ServiceProvider
 
         $this->app->bind(Magfa::class, function () {
             $config = config('sms.drivers.magfa') ?? [];
+
             return new Magfa($config);
         });
 
         $this->app->bind(SmsOnline::class, function () {
             $config = config('sms.drivers.smsonline') ?? [];
+
             return new SmsOnline($config);
         });
 
         $this->app->bind(Avanak::class, function () {
             $config = config('sms.drivers.avanak') ?? [];
+
             return new Avanak($config);
         });
     }

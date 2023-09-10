@@ -4,8 +4,8 @@ namespace HoomanMirghasemi\Sms\Tests\Feature\Drivers;
 
 use HoomanMirghasemi\Sms\Drivers\Magfa;
 use HoomanMirghasemi\Sms\Models\SmsReport;
-use Mockery\MockInterface;
 use HoomanMirghasemi\Sms\Tests\TestCase;
+use Mockery\MockInterface;
 
 class MagfaTest extends TestCase
 {
@@ -21,7 +21,7 @@ class MagfaTest extends TestCase
             ->send();
         $this->assertFalse($result);
         $this->assertDatabaseHas(SmsReport::class, [
-            'mobile' => $this->mobile,
+            'mobile'  => $this->mobile,
             'success' => false,
             'message' => 'Test Magfa sms',
         ]);
