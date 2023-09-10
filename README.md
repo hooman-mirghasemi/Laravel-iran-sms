@@ -1,4 +1,4 @@
-<p align="center"><img src="src/Resources/images/sms.jpg?raw=true"></p>
+<p align="center"><img src="src/Resources/images/sms.jpg?raw=true" width="150px"></p>
 
 
 
@@ -19,6 +19,7 @@ This is a Laravel Package for Sms Senders Integration. This package supports `La
 > This packages works with multiple drivers, and you can create custom drivers and send your code as a pull request if you can't find them in the [current drivers list](#list-of-available-drivers) (below list).
 
 - [داکیومنت فارسی(به زودی)][link-fa]
+
 - [English documents][link-en]
 
 # List of contents
