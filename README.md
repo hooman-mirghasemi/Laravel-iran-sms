@@ -23,7 +23,6 @@ This is a Laravel Package for Sms Senders Integration. This package supports `La
 > - Have a tools in only development mode in http://localhost/sms/get-sms-list (Your frontend developer can use it for access latest sms send with fake driver for example needs to otp codes, when he/she is 
 > developing some parts like forgot password)
 
-- [داکیومنت فارسی(به زودی)][link-fa]
 
 - [English documents][link-en]
 
@@ -56,7 +55,59 @@ like username/password or api key depend on witch driver you use.
 
 Note: to use magfa/sms online/avanak you should install php ext-soap.
 
+## .env file for each driver:
 
+### fake sms sender
+// Use in your local .env file
+
+SMS_DRIVER=fake
+
+// It's optional if you want you can set a number
+
+FAKE_SENDER_NUMBER=101010
+
+
+### Kavenegar
+// Use in your production .env file if you want to use Kavenegar as default sms driver
+
+SMS_DRIVER=kavenegar
+
+// Your kavenegar account api key
+
+KAVENEGAR_API_KEY=fsdf452fd
+
+### Magfa
+// Use in your production .env file if you want to use Magfa as default sms driver
+
+SMS_DRIVER=magfa
+
+SMS_MAGFA_USERNAME=your magfa user name
+
+SMS_MAGFA_PASSWORD=your magfa password
+
+SMS_MAGFA_DOMAIN=your magfa domain
+
+SMS_MAGFA_SENDER_NUMBER=your number in magfa you want to send sms with it
+
+### Sms Online
+// Use in your production .env file if you want to use Sms Online as default sms driver
+
+SMS_DRIVER=smsonline
+
+SMS_ONLINE_USERNAME=your smsonline user name
+
+SMS_ONLINE_PASSWORD=your smsonline password
+
+SMS_ONLINE_SENDER_NUMBER=your number in smsonline you want to send sms with it
+
+### Avanak (voice caller)
+// Use in your production .env file if you want to use Sms Online as default sms driver
+
+VOICE_CALL_DRIVER=avanak
+
+VOICE_AVANAK_USERNAME=your avanak user name
+
+VOICE_AVANAK_PASSWORD=your avanak password
 > you can create your own custom drivers if it does not exist in the list, read the `Create custom drivers` section.
 
 ## Install
@@ -111,7 +162,8 @@ use HoomanMirghasemi\Sms\Facades\Sms;
 
 Sms::to('+989121234567')->message('your sms text')->send();
 
-
+//Also you can set driver in run time:
+Sms::driver('magfa')->to('+989121234567')->message('your sms text')->send();
 ```
 available methods:
 
@@ -180,14 +232,69 @@ We welcome your participation, Create your driver and send a pull request.
 
 Option A:
 This package is using strategy design pattern and laravel `Manager` class.
-so you can easily make your driver and register it into manager class in 
-any of your service providers class like this:
+so you can easily make your driver like this:
 
+```php
+<?php
+
+namespace App;
+
+use HoomanMirghasemi\Sms\Abstracts\Driver;
+
+class MyCustomDriver extends Driver
+{
+    public static bool $successSend = true;
+
+    public function __construct(protected array $settings)
+    {
+        $this->from = data_get($this->settings, 'from');
+    }
+
+    public function send(): bool
+    {
+        // write api of sending sms by your custom provider
+
+        return parent::send();
+    }
+    
+    public function getBalance(): string
+    {
+         // write api of getting account balance from your custom provider
+         return $balance;
+    }
+}
+
+```
+And register it into manager class in any of your service providers class like this:
 ```php
 $smsManager = app('sms');
 
 $smsManager->extend('myCustomDriver', function ($app) {
-    return new myCustomDriver($app);
+    $setting = ['from' => '22336'];
+    return new MyCustomDriver($setting);
+});
+
+
+// or using laravel ioc
+
+$this->app->bind(MyCustomDriver::class, function () {
+    $setting = ['from' => '22336'];
+    return new MyCustomDriver($config);
+});
+
+$smsManager->extend('myCustomDriver', function ($app) {
+    return $this->container->make(MyCustomDriver::class);
+});
+
+// or you can publish config file and add setting of your driver into it. then:
+
+$this->app->bind(MyCustomDriver::class, function () {
+    $config = config('sms.drivers.mycustomdriver') ?? [];
+    return new MyCustomDriver($config);
+});
+
+$smsManager->extend('myCustomDriver', function ($app) {
+    return $this->container->make(MyCustomDriver::class);
 });
 ```
 
