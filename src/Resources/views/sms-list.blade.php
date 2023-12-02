@@ -38,7 +38,7 @@
             @if(isset($data))
                 @foreach($data as $sms)
                     <tr>
-                        <th scope="row">{{$sms['id']}}</th>
+                        <td>{{$sms['id']}}</td>
                         <td>{{$sms['mobile']}}</td>
                         <td>{{$sms['message']}}</td>
                         <td>{{$sms['from']}}</td>
