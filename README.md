@@ -13,7 +13,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/9e2415e0cfcfe2120a9e/maintainability)](https://codeclimate.com/github/hooman-mirghasemi/Laravel-iran-sms/maintainability)
 [![Quality Score][ico-code-quality]][link-code-quality]
 
-This is a Laravel Package for Sms Senders Integration. This package supports `Laravel 9+` But it may work with laravel 8 or 7 (not tested).
+This is a Laravel Package for Sms Senders Integration. This package supports `Laravel 8+`, all tests passed for laravel 8, 9, 10 and 11!
 
 > Benefits of this package:
 > - Multiple drivers
