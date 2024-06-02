@@ -325,7 +325,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-code-quality]: https://img.shields.io/scrutinizer/quality/g/hooman-mirghasemi/laravel-iran-sms.svg?label=Code%20Quality&style=flat-square
 
-[link-fa]: README-FA.md
+[link-fa]: README_FA.md
 [link-en]: README.md
 [link-packagist]: https://packagist.org/packages/hooman-mirghasemi/laravel-iran-sms
 [link-code-quality]: https://scrutinizer-ci.com/g/hooman-mirghasemi/laravel-iran-sms
