@@ -25,6 +25,7 @@ This is a Laravel Package for Sms Senders Integration. This package supports `La
 
 
 - [English documents][link-en]
+- [داکیومنت فارسی][link-fa]
 
 # List of contents
 
