@@ -39,7 +39,7 @@
 
 # لیست درایورهای موجود
 
-- [درایور پیامک ساختگی](#fake-sms) :heavy_check_mark: :بخشی از تست‌های توسعه.
+- [درایور پیامک fake](#fake-sms) :heavy_check_mark: :بخشی از تست‌های توسعه.
 - [Kavenegar](#kavenegar) :heavy_check_mark:
 - [Mediana](#mediana) :heavy_check_mark:
 - [Sms.ir](#smsir) :heavy_check_mark:
