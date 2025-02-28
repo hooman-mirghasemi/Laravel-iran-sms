@@ -10,7 +10,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/9e2415e0cfcfe2120a9e/maintainability)](https://codeclimate.com/github/hooman-mirghasemi/Laravel-iran-sms/maintainability)
 [![Quality Score][ico-code-quality]][link-code-quality]
 
-این یک پکیج لاراول برای ارسال پیامک با پراوایدر های پیامک معروف است. این پکیج از `Laravel 8+` پشتیبانی می‌کند و تمامی تست‌ها برای لاراول 8، 9، 10 و 11 پاس شده‌اند!
+این یک پکیج لاراول برای ارسال پیامک با پراوایدر های پیامک معروف است. این پکیج از `Laravel 8+` پشتیبانی می‌کند و تمامی تست‌ها برای لاراول 8، 9، 10، 11 و 12 پاس شده‌اند!
 
 > مزایای این پکیج:
 > - درایورهای متعدد
