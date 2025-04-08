@@ -214,14 +214,11 @@ like this code or some thing you want:
 
 ```php
 // default config is:
-'dont_show_sms_list_page_condition' => function() {
-    return config('app.env') == 'production';
-}
+'dont_show_sms_list_page_condition' => config('app.env') == 'production',
 
-// you can check domain:
-'dont_show_sms_list_page_condition' => function() {
-    return config('app.env') == 'production' || config('app.url') == 'https://yourproductiondomain.com';
-}
+// you can check any thing like domain:
+'dont_show_sms_list_page_condition' => config('app.env') == 'production' || config('app.url') == 'https://yourproductiondomain.com';
+
 ```
 now if you forgot to set app.env to production or temporary change it, it will be safe
 and return 404.
