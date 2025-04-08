@@ -50,7 +50,7 @@ abstract class Driver implements DriverContract
      *
      * @var bool
      */
-    protected bool|null $success = null;
+    protected ?bool $success = null;
 
     /**
      * Add recipient (phone or mobile numbers).
