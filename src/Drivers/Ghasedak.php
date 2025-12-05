@@ -62,6 +62,10 @@ class Ghasedak extends Driver
                     )
                 );
 
+                $this->success = isset($result);
+                $this->from = '';
+                $this->message = $identifier;
+
             } else {
                 $result = $this->ghasedakSmsApi->sendSingle(
                     new SingleMessageDTO(
@@ -71,12 +75,14 @@ class Ghasedak extends Driver
                         $this->message->toString()
                     )
                 );
+
+                $this->success = $result->getMessageId() !== null;
+                $this->from = $result->getLineNumber();
+                $this->message = $result->getMessage();
             }
 
-            $this->success = $result->getMessageId() !== null;
-            $this->from = $result->getLineNumber();
-            $this->message = $result->getMessage();
             $this->webserviceResponse = print_r($result, true);
+
         } catch (Exception $exception) {
             $this->webserviceResponse = $exception->getMessage();
             $this->success = false;
