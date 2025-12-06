@@ -14,7 +14,7 @@ class SmsControllerTest extends TestCase
 
     public function testIndexNotFoundInProduction()
     {
-        $this->app->config['app.env'] = 'production';
+        $this->app->config['sms.dont_show_sms_list_page_condition'] = 'production';
         $response = $this->get(route('sms.index'));
         $response->assertNotFound();
     }

@@ -4,13 +4,13 @@ namespace HoomanMirghasemi\Sms\Providers;
 
 use HoomanMirghasemi\Sms\Drivers\Avanak;
 use HoomanMirghasemi\Sms\Drivers\FakeSmsSender;
+use HoomanMirghasemi\Sms\Drivers\Ghasedak;
 use HoomanMirghasemi\Sms\Drivers\Kavenegar;
 use HoomanMirghasemi\Sms\Drivers\Magfa;
 use HoomanMirghasemi\Sms\Drivers\SmsOnline;
 use HoomanMirghasemi\Sms\SmsManager;
 use HoomanMirghasemi\Sms\VoiceCallManager;
 use Illuminate\Support\ServiceProvider;
-use Kavenegar\KavenegarApi;
 
 class SmsProvider extends ServiceProvider
 {
@@ -48,13 +48,6 @@ class SmsProvider extends ServiceProvider
             return new FakeSmsSender($config);
         });
 
-        $this->app->bind(Kavenegar::class, function () {
-            $config = config('sms.drivers.kavenegar') ?? [];
-            $kavenegarApi = new KavenegarApi($config['apiKey']);
-
-            return new Kavenegar($config, $kavenegarApi);
-        });
-
         $this->app->bind(Magfa::class, function () {
             $config = config('sms.drivers.magfa') ?? [];
 
@@ -72,6 +65,24 @@ class SmsProvider extends ServiceProvider
 
             return new Avanak($config);
         });
+
+        if (class_exists(\Kavenegar\KavenegarApi::class)) {
+            $this->app->bind(Kavenegar::class, function () {
+                $config = config('sms.drivers.kavenegar') ?? [];
+                $kavenegarApi = new \Kavenegar\KavenegarApi($config['apiKey']);
+
+                return new Kavenegar($config, $kavenegarApi);
+            });
+        }
+
+        if (class_exists(\Ghasedak\GhasedaksmsApi::class)) {
+            $this->app->bind(Ghasedak::class, function () {
+                $config = config('sms.drivers.ghasedak') ?? [];
+                $ghasedakApi = new \Ghasedak\GhasedaksmsApi($config['apiKey']);
+
+                return new Ghasedak($config, $ghasedakApi);
+            });
+        }
     }
 
     private function loadMigrations(): self

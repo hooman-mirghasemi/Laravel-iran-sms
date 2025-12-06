@@ -52,8 +52,13 @@ return [
             'from'     => env('VOICE_AVANAK_SENDER_NUMBER', ''),
             'wsdl_url' => 'http://portal.avanak.ir/webservice3.asmx?WSDL',
         ],
+        'ghasedak' => [
+            'apiKey'   => env('GHASEDAK_API_KEY'),
+            'from'     => env('GHASEDAK_SENDER_NUMBER'),
+        ],
     ],
-    'dont_show_sms_list_page_condition' => function () {
-        return config('app.env') == 'production';
-    },
+    'dont_show_sms_list_page_condition' => env(
+        'DONT_SHOW_SMS_LIST_PAGE',
+        env('APP_ENV', 'production') == 'production'
+    ),
 ];

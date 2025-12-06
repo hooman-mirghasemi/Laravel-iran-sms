@@ -1,8 +1,13 @@
 {
     "name": "hooman-mirghasemi/laravel-iran-sms",
-    "keywords": ["laravel", "sms", "notification", "iran", "kavenagar", "voicecall", "avanak", "smsonline", "magfa", "fake-sms"],
+    "keywords": ["laravel", "sms", "kavenagar", "ghasedak","notification", "iran", "voicecall", "avanak", "smsonline", "magfa", "fake-sms"],
     "description": "Laravel Sms",
     "type": "library",
+    "license": "MIT",
+    "homepage": "https://github.com/hooman-mirghasemi/laravel-iran-sms",
+    "support": {
+        "issues": "https://github.com/hooman-mirghasemi/laravel-iran-sms/issues"
+    },
     "autoload": {
         "psr-4": {
             "HoomanMirghasemi\\Sms\\Tests\\": "tests/",
@@ -25,13 +30,25 @@
     ],
     "require": {
         "php": "^8.0.2",
-        "kavenegar/laravel": "*",
-        "laravel/framework": "^8.0|^9.0|^10.0|^11.0"
+        "illuminate/contracts": "^8.0|^9.0|^10.0|^11.0|^12.0",
+        "illuminate/support": "^8.0|^9.0|^10.0|^11.0|^12.0",
+        "illuminate/notifications": "^8.0|^9.0|^10.0|^11.0|^12.0",
+        "illuminate/config": "^8.0|^9.0|^10.0|^11.0|^12.0"
+    },
+    "suggest": {
+        "ghasedaksms/php": "^1.0",
+        "kavenegar/laravel": "^1.3"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.0|^10.5",
-        "orchestra/testbench": "^6.40|^7.37|^8.17|^9.0",
+        "orchestra/testbench": "^6.40 | ^7.37 | ^8.17 | ^9.0 | ^10.0",
+        "phpunit/phpunit": "^9.5.10 | ^10.5 | ^11.5",
         "laravel/legacy-factories": "^1.4"
+    },
+    "config": {
+        "allow-plugins": {
+            "orchestra/testbench": true
+        },
+        "sort-packages": true
     },
     "minimum-stability": "stable",
     "scripts": {

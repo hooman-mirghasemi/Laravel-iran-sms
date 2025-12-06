@@ -10,7 +10,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/9e2415e0cfcfe2120a9e/maintainability)](https://codeclimate.com/github/hooman-mirghasemi/Laravel-iran-sms/maintainability)
 [![Quality Score][ico-code-quality]][link-code-quality]
 
-این یک پکیج لاراول برای ارسال پیامک با پراوایدر های پیامک معروف است. این پکیج از `Laravel 8+` پشتیبانی می‌کند و تمامی تست‌ها برای لاراول 8، 9، 10 و 11 پاس شده‌اند!
+این یک پکیج لاراول برای ارسال پیامک با پراوایدر های پیامک معروف است. این پکیج از `Laravel 8+` پشتیبانی می‌کند و تمامی تست‌ها برای لاراول 8، 9، 10، 11 و 12 پاس شده‌اند!
 
 > مزایای این پکیج:
 > - درایورهای متعدد
@@ -39,12 +39,22 @@
 
 # لیست درایورهای موجود
 
-- [درایور پیامک fake](#fake-sms) :heavy_check_mark: :بخشی از تست‌های توسعه.
-- [Kavenegar](#kavenegar) :heavy_check_mark:
-- [Mediana](#mediana) :heavy_check_mark:
-- [Sms.ir](#smsir) :heavy_check_mark:
-- [Farazsms](#farazsms) :heavy_check_mark:
-- [Meli Payamak](#meli-payamak) :heavy_check_mark:
+- [درایور پیامک fake](#fake-sms) (هم برای پیامک و هم تماس صوتی)
+- [Avanak](https://www.avanak.ir/) (درایور تماس صوتی)
+- [Ghasedak](https://ghasedak.me/) (پیامک)
+- [Kavenegar](https://kavenegar.com/) (پیامک)
+- [Magfa](https://magfa.com/) (پیامک)
+- [Sms Online](https://smsonline.ir/) (پیامک)
+
+**مهم:** برخی درایورها نیاز به پکیج‌های اضافی دارند. پکیج درایور مورد نیاز خود را نصب کنید:
+
+```bash
+# برای درایور قاصدک
+composer require ghasedaksms/php
+
+# برای درایور کاوه‌نگار
+composer require kavenegar/laravel
+```
 
 # نصب
 
@@ -72,9 +82,47 @@ composer update
 
 این پکیج از پیکربندی‌ها در فایل `.env` پشتیبانی می‌کند. نمونه تنظیمات فایل `.env` به این شکل است:
 
+### درایور fake (برای توسعه و تست)
+```
+SMS_DRIVER=fake
+FAKE_SENDER_NUMBER=101010
+```
+
+### درایور قاصدک (Ghasedak)
+```
+SMS_DRIVER=ghasedak
+GHASEDAK_API_KEY=your_api_key
+GHASEDAK_SENDER_NUMBER=3000xxxxx
+```
+
+### درایور کاوه‌نگار (Kavenegar)
 ```
 SMS_DRIVER=kavenegar
-SMS_API_KEY=کلید API شما
+KAVENEGAR_API_KEY=your_api_key
+```
+
+### درایور مگفا (Magfa)
+```
+SMS_DRIVER=magfa
+SMS_MAGFA_USERNAME=your_username
+SMS_MAGFA_PASSWORD=your_password
+SMS_MAGFA_DOMAIN=your_domain
+SMS_MAGFA_SENDER_NUMBER=your_sender_number
+```
+
+### درایور Sms Online
+```
+SMS_DRIVER=smsonline
+SMS_ONLINE_USERNAME=your_username
+SMS_ONLINE_PASSWORD=your_password
+SMS_ONLINE_SENDER_NUMBER=your_sender_number
+```
+
+### درایور آوانک (Avanak) - تماس صوتی
+```
+VOICE_CALL_DRIVER=avanak
+VOICE_AVANAK_USERNAME=your_username
+VOICE_AVANAK_PASSWORD=your_password
 ```
 
 # نحوه استفاده
@@ -137,6 +185,26 @@ $smsManager = new SmsManager(app());
 $smsManager->extend('myCustomDriver', function ($app) {
     return new MyCustomDriver();
 });
+```
+
+### تغییر شرط نمایش صفحه لیست پیامک‌ها
+
+به طور پیش‌فرض وقتی اپلیکیشن لاراول شما در حالت پروداکشن است، این صفحه 404 برمی‌گرداند.
+می‌توانید این را از طریق فایل `.env` کنترل کنید:
+
+```
+# برای مخفی کردن صفحه لیست پیامک true قرار دهید (پیش‌فرض: true در production)
+DONT_SHOW_SMS_LIST_PAGE=true
+```
+
+یا اگر کنترل بیشتری می‌خواهید، فایل config را publish کرده و شرط را سفارشی کنید:
+
+```php
+// پیکربندی پیش‌فرض:
+'dont_show_sms_list_page_condition' => env(
+    'DONT_SHOW_SMS_LIST_PAGE',
+    env('APP_ENV', 'production') == 'production'
+),
 ```
 
 ### رویدادها

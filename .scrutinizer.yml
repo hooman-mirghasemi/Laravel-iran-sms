@@ -1,0 +1,11 @@
+build:
+  environment:
+    php: 8.2
+  nodes:
+    analysis:
+      tests:
+        override:
+          - command: |
+              composer config audit.block-insecure false
+              composer install --prefer-dist --no-interaction --no-progress
+              vendor/bin/phpunit

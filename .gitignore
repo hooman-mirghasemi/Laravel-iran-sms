@@ -5,3 +5,5 @@
 phpunit.xml.bak
 composer.lock
 test-report.xml
+
+/*-test.php

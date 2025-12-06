@@ -3,8 +3,6 @@ name: tests
 on:
   push:
   pull_request:
-  schedule:
-    - cron: '0 0 * * *'
 
 jobs:
   tests:
@@ -13,41 +11,58 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['8.0', 8.1, 8.2, 8.3]
-        laravel: [8, 9, 10, 11]
+        php: ['8.0', '8.1', '8.2', '8.3', '8.4']
+        laravel: ['8', '9', '10', '11', '12']
         exclude:
+          # Laravel 10 requires PHP >= 8.1
           - php: '8.0'
-            laravel: 10
+            laravel: '10'
           - php: '8.0'
-            laravel: 11
-          - php: 8.1
-            laravel: 11
-          - php: 8.2
-            laravel: 8
-          - php: 8.3
-            laravel: 8
-          - php: 8.3
-            laravel: 9
+            laravel: '11'
+          - php: '8.0'
+            laravel: '12'
+
+          # Laravel 11 requires PHP >= 8.2
+          - php: '8.1'
+            laravel: '11'
+          - php: '8.1'
+            laravel: '12'
+
+          # Laravel 12 requires PHP >= 8.2
+          - php: '8.0'
+            laravel: '12'
+          - php: '8.1'
+            laravel: '12'
 
     name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }}
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip
-          ini-values: error_reporting=E_ALL
+          extensions: dom, curl, libxml, mbstring, zip, bcmath
           tools: composer:v2
-          coverage: none
 
       - name: Install dependencies
         run: |
-          composer require "illuminate/contracts=^${{ matrix.laravel }}" --no-update
+          if [ "${{ matrix.laravel }}" = "8" ]; then
+            composer require "orchestra/testbench:^6.40" --dev --no-update
+          elif [ "${{ matrix.laravel }}" = "9" ]; then
+            composer require "orchestra/testbench:^7.37" --dev --no-update
+          elif [ "${{ matrix.laravel }}" = "10" ]; then
+            composer require "orchestra/testbench:^8.17" --dev --no-update
+          elif [ "${{ matrix.laravel }}" = "11" ]; then
+            composer require "orchestra/testbench:^9.0" --dev --no-update
+          elif [ "${{ matrix.laravel }}" = "12" ]; then
+            composer require "orchestra/testbench:^10.0" --dev --no-update
+          fi
+
+          composer config audit.block-insecure false
           composer update --prefer-dist --no-interaction --no-progress
 
-      - name: Execute tests
+      - name: Run tests
         run: vendor/bin/phpunit
