@@ -18,8 +18,7 @@ class Ghasedak extends Driver
         protected array $settings,
         private GhasedaksmsApi $ghasedakSmsApi,
         private ?string $lineNumber = null
-    )
-    {
+    ) {
         if (!isset($this->lineNumber) && isset($this->settings['from'])) {
             $this->lineNumber = $this->settings['from'];
         }
@@ -34,12 +33,12 @@ class Ghasedak extends Driver
     {
         if (!$this->serviceActive) {
             parent::failedConnectToProvider();
+
             return false;
         }
 
         try {
             if ($this->message->usesTemplate()) {
-
                 $template = $this->message->getTemplate();
                 $identifier = $template['identifier'];
                 $params = array_values($template['params']);
@@ -65,7 +64,6 @@ class Ghasedak extends Driver
                 $this->success = isset($result);
                 $this->from = '';
                 $this->message = $identifier;
-
             } else {
                 $result = $this->ghasedakSmsApi->sendSingle(
                     new SingleMessageDTO(
@@ -82,7 +80,6 @@ class Ghasedak extends Driver
             }
 
             $this->webserviceResponse = print_r($result, true);
-
         } catch (Exception $exception) {
             $this->webserviceResponse = $exception->getMessage();
             $this->success = false;
