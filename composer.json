@@ -1,8 +1,13 @@
 {
     "name": "hooman-mirghasemi/laravel-iran-sms",
-    "keywords": ["laravel", "sms", "notification", "iran", "kavenagar", "voicecall", "avanak", "smsonline", "magfa", "fake-sms"],
+    "keywords": ["laravel", "sms", "kavenagar", "ghasedak","notification", "iran", "voicecall", "avanak", "smsonline", "magfa", "fake-sms"],
     "description": "Laravel Sms",
     "type": "library",
+    "license": "MIT",
+    "homepage": "https://github.com/hooman-mirghasemi/laravel-iran-sms",
+    "support": {
+        "issues": "https://github.com/hooman-mirghasemi/laravel-iran-sms/issues"
+    },
     "autoload": {
         "psr-4": {
             "HoomanMirghasemi\\Sms\\Tests\\": "tests/",
@@ -25,7 +30,10 @@
     ],
     "require": {
         "php": "^8.0.2",
-        "laravel/framework": "^8.0|^9.0|^10.0|^11.0|^12.0"
+        "illuminate/contracts": "^8.0|^9.0|^10.0|^11.0|^12.0",
+        "illuminate/support": "^8.0|^9.0|^10.0|^11.0|^12.0",
+        "illuminate/notifications": "^8.0|^9.0|^10.0|^11.0|^12.0",
+        "illuminate/config": "^8.0|^9.0|^10.0|^11.0|^12.0"
     },
     "suggest": {
         "ghasedaksms/php": "^1.0",
