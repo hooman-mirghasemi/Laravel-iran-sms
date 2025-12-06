@@ -53,8 +53,8 @@ return [
             'wsdl_url' => 'http://portal.avanak.ir/webservice3.asmx?WSDL',
         ],
         'ghasedak' => [
-            'apiKey' => env('GHASEDAK_API_KEY'),
-            'from' => env('GHASEDAK_SENDER_NUMBER'),
+            'apiKey'   => env('GHASEDAK_API_KEY'),
+            'from'     => env('GHASEDAK_SENDER_NUMBER'),
         ]
     ],
     'dont_show_sms_list_page_condition' => env(
