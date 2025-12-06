@@ -3,6 +3,7 @@
 namespace HoomanMirghasemi\Sms;
 
 use HoomanMirghasemi\Sms\Drivers\FakeSmsSender;
+use HoomanMirghasemi\Sms\Drivers\Ghasedak;
 use HoomanMirghasemi\Sms\Drivers\Kavenegar;
 use HoomanMirghasemi\Sms\Drivers\Magfa;
 use HoomanMirghasemi\Sms\Drivers\SmsOnline;
@@ -49,6 +50,16 @@ class SmsManager extends Manager
     protected function createMagfaDriver()
     {
         return $this->container->make(Magfa::class);
+    }
+
+    /**
+     * Create an instance of the ghasedak sms sender driver.
+     *
+     * @return Ghasedak
+     */
+    protected function createGhasedakDriver(): Ghasedak
+    {
+        return $this->container->make(Ghasedak::class);
     }
 
     /**

@@ -45,16 +45,27 @@ This is a Laravel Package for Sms Senders Integration. This package supports `La
 
 # List of available drivers
 
-- [fake sms sender](#fake-sms) :heavy_check_mark: (Both: Voice call/Sms)
-- [Avanak](https://www.avanak.ir/) :heavy_check_mark: (Voice call driver)
-- [Kavenegar](https://kavenegar.com/) :heavy_check_mark: (Sms)
-- [Magfa](https://magfa.com/) :heavy_check_mark: (Sms)
-- [Sms Online](https://smsonline.ir/) :heavy_check_mark: (Sms)
+- [fake sms sender](#fake-sms) : (Both: Voice call/Sms)
+- [Avanak](https://www.avanak.ir/) : (Voice call driver)
+- [Ghasedak](https://ghasedak.me/) : (Sms)
+- [Kavenegar](https://kavenegar.com/) : (Sms)
+- [Magfa](https://magfa.com/) : (Sms)
+- [Sms Online](https://smsonline.ir/) : (Sms)
 
 Note: for using each of them check config file and use the needed env in your env file
 like username/password or api key depend on witch driver you use.
 
 Note: to use magfa/sms online/avanak you should install php ext-soap.
+
+**Important:** Some drivers require additional packages. Install the driver package you need:
+
+```bash
+# For Ghasedak driver
+composer require ghasedaksms/php
+
+# For Kavenegar driver
+composer require kavenegar/laravel
+```
 
 ## .env file for each driver:
 
@@ -67,6 +78,19 @@ SMS_DRIVER=fake
 
 FAKE_SENDER_NUMBER=101010
 
+
+### Ghasedak
+// Use in your production .env file if you want to use Ghasedak as default sms driver
+
+SMS_DRIVER=ghasedak
+
+// Your Ghasedak account api key
+
+GHASEDAK_API_KEY=your_api_key
+
+// Your Ghasedak sender number (line number)
+
+GHASEDAK_SENDER_NUMBER=3000xxxxx
 
 ### Kavenegar
 // Use in your production .env file if you want to use Kavenegar as default sms driver
@@ -208,16 +232,24 @@ public function toSms(User $notifiable)
 ```
 #### Change condition of showing sms list page
 
-By default when your laravel application is in production mode this page will response 
-404. But if you want have a diffrent condition publish config file and change this part
-like this code or some thing you want:
+By default when your laravel application is in production mode this page will response 404. You can now control this via `.env` file:
+
+```
+# Set to true to hide the SMS list page (default: true in production)
+DONT_SHOW_SMS_LIST_PAGE=true
+```
+
+Or if you want more control, publish the config file and customize the condition:
 
 ```php
 // default config is:
-'dont_show_sms_list_page_condition' => config('app.env') == 'production',
+'dont_show_sms_list_page_condition' => env(
+    'DONT_SHOW_SMS_LIST_PAGE',
+    env('APP_ENV', 'production') == 'production'
+),
 
 // you can check any thing like domain:
-'dont_show_sms_list_page_condition' => config('app.env') == 'production' || config('app.url') == 'https://yourproductiondomain.com';
+'dont_show_sms_list_page_condition' => env('APP_ENV') == 'production' || config('app.url') == 'https://yourproductiondomain.com',
 
 ```
 now if you forgot to set app.env to production or temporary change it, it will be safe
