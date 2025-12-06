@@ -1,0 +1,4 @@
+build:
+  environment:
+    variables:
+      COMPOSER_AUDIT_BLOCK_INSECURE: "false"
