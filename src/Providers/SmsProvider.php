@@ -70,7 +70,7 @@ class SmsProvider extends ServiceProvider
             $this->app->bind(Kavenegar::class, function () {
                 $config = config('sms.drivers.kavenegar') ?? [];
                 $kavenegarApi = new \Kavenegar\KavenegarApi($config['apiKey']);
-                
+
                 return new Kavenegar($config, $kavenegarApi);
             });
         }
