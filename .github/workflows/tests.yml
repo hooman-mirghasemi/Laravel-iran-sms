@@ -32,8 +32,6 @@ jobs:
           coverage: none
 
       - name: Install dependencies
-        env:
-          COMPOSER_AUDIT_BLOCK_INSECURE: "false"
         run: |
           if [ "${{ matrix.laravel }}" = "8" ]; then
             composer require "orchestra/testbench:^6.40" --dev --no-update
@@ -47,7 +45,8 @@ jobs:
             composer require "orchestra/testbench:^10.0" --dev --no-update
           fi
 
-          composer update --prefer-dist --no-interaction --no-progress --no-suggest
+          composer config audit.block-insecure false
+          composer update --prefer-dist --no-interaction --no-progress
 
       - name: Execute tests
         run: vendor/bin/phpunit

@@ -1,4 +1,13 @@
 build:
   environment:
-    variables:
-      COMPOSER_AUDIT_BLOCK_INSECURE: "false"
+    php:
+      version: 8.2.0 
+  nodes:
+    analysis:
+      tests:
+        override:
+          - command: |
+              composer config audit.block-insecure false
+              composer update --prefer-dist --no-interaction --no-progress
+              vendor/bin/phpunit
+            coverage: none
