@@ -2,7 +2,6 @@
 
 namespace HoomanMirghasemi\Sms\Channels;
 
-use Exception;
 use HoomanMirghasemi\Sms\Abstracts\Driver;
 use HoomanMirghasemi\Sms\VoiceCallManager;
 use Illuminate\Notifications\Notification;
@@ -12,12 +11,7 @@ class VoiceCallChannel
     /**
      * Send notification.
      *
-     * @param              $notifiable
-     * @param Notification $notification
-     *
-     * @throws Exception
-     *
-     * @return void
+     * @throws \Exception
      */
     public function send($notifiable, Notification $notification): void
     {
@@ -31,14 +25,12 @@ class VoiceCallChannel
     /**
      * Validate sms.
      *
-     * @throws Exception
-     *
-     * @return void
+     * @throws \Exception
      */
     protected function validate($manager): void
     {
         if (!$manager instanceof VoiceCallManager && !$manager instanceof Driver) {
-            throw new Exception('Invalid data for voice call notification.');
+            throw new \Exception('Invalid data for voice call notification.');
         }
     }
 }

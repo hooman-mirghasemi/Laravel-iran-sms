@@ -41,9 +41,9 @@
         "kavenegar/laravel": "^1.3"
     },
     "require-dev": {
+        "laravel/legacy-factories": "^1.4",
         "orchestra/testbench": "^6.40 | ^7.37 | ^8.17 | ^9.0 | ^10.0",
-        "phpunit/phpunit": "^9.5.10 | ^10.5 | ^11.5",
-        "laravel/legacy-factories": "^1.4"
+        "phpunit/phpunit": "^9.5.10 | ^10.5 | ^11.5"
     },
     "config": {
         "allow-plugins": {

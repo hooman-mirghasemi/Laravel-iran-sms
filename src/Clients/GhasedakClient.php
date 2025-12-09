@@ -23,8 +23,6 @@ class GhasedakClient
 
     /**
      * @throws ConnectionException|RequestException
-     *
-     * @return PromiseInterface|Response
      */
     public function getAccountInformation(): PromiseInterface|Response
     {
@@ -32,13 +30,7 @@ class GhasedakClient
     }
 
     /**
-     * @param string $lineNumber
-     * @param string $receptor
-     * @param string $message
-     *
      * @throws ConnectionException|RequestException
-     *
-     * @return PromiseInterface|Response
      */
     public function sendSingleSMS(string $lineNumber, string $receptor, string $message): PromiseInterface|Response
     {
@@ -54,7 +46,7 @@ class GhasedakClient
         $parameters = [];
 
         foreach ($params as $index => $param) {
-            if ($param == null) {
+            if (null == $param) {
                 continue;
             }
             $parameters['param'.$index + 1] = $param;

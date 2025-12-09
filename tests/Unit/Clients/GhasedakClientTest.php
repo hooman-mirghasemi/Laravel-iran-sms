@@ -15,13 +15,13 @@ class GhasedakClientTest extends TestCase
     {
         Http::fake([
             'GetAccountInformation' => Http::response([
-                'isSuccess' => true,
+                'isSuccess'  => true,
                 'statusCode' => 200,
-                'message' => 'Success',
-                'data' => [
-                    'credit' => '50000'
-                ]
-            ], 200)
+                'message'    => 'Success',
+                'data'       => [
+                    'credit' => '50000',
+                ],
+            ], 200),
         ]);
 
         $client = new GhasedakClient($this->baseApiUrl, $this->apiKey);
@@ -33,8 +33,8 @@ class GhasedakClientTest extends TestCase
         $this->assertEquals('50000', $data['data']['credit']);
 
         Http::assertSent(function ($request) {
-            return $request->hasHeader('ApiKey', $this->apiKey) &&
-                   $request->url() === $this->baseApiUrl . '/GetAccountInformation';
+            return $request->hasHeader('ApiKey', $this->apiKey)
+                   && $request->url() === $this->baseApiUrl.'/GetAccountInformation';
         });
     }
 
@@ -42,10 +42,10 @@ class GhasedakClientTest extends TestCase
     {
         Http::fake([
             'GetAccountInformation' => Http::response([
-                'isSuccess' => false,
+                'isSuccess'  => false,
                 'statusCode' => 401,
-                'message' => 'Invalid API key'
-            ], 401)
+                'message'    => 'Invalid API key',
+            ], 401),
         ]);
 
         $client = new GhasedakClient($this->baseApiUrl, $this->apiKey);
@@ -59,14 +59,14 @@ class GhasedakClientTest extends TestCase
     {
         Http::fake([
             'SendSingleSMS' => Http::response([
-                'isSuccess' => true,
+                'isSuccess'  => true,
                 'statusCode' => 200,
-                'message' => 'Message sent successfully',
-                'data' => [
+                'message'    => 'Message sent successfully',
+                'data'       => [
                     'lineNumber' => '30005088',
-                    'messageId' => '123456789'
-                ]
-            ], 200)
+                    'messageId'  => '123456789',
+                ],
+            ], 200),
         ]);
 
         $client = new GhasedakClient($this->baseApiUrl, $this->apiKey);
@@ -79,11 +79,12 @@ class GhasedakClientTest extends TestCase
 
         Http::assertSent(function ($request) {
             $body = $request->data();
-            return $request->hasHeader('ApiKey', $this->apiKey) &&
-                   $request->url() === $this->baseApiUrl . '/SendSingleSMS' &&
-                   $body['lineNumber'] === '30005088' &&
-                   $body['receptor'] === '09121234567' &&
-                   $body['message'] === 'Test message';
+
+            return $request->hasHeader('ApiKey', $this->apiKey)
+                   && $request->url() === $this->baseApiUrl.'/SendSingleSMS'
+                   && '30005088' === $body['lineNumber']
+                   && '09121234567' === $body['receptor']
+                   && 'Test message' === $body['message'];
         });
     }
 
@@ -91,10 +92,10 @@ class GhasedakClientTest extends TestCase
     {
         Http::fake([
             'SendSingleSMS' => Http::response([
-                'isSuccess' => false,
+                'isSuccess'  => false,
                 'statusCode' => 400,
-                'message' => 'Invalid line number'
-            ], 400)
+                'message'    => 'Invalid line number',
+            ], 400),
         ]);
 
         $client = new GhasedakClient($this->baseApiUrl, $this->apiKey);
@@ -108,10 +109,10 @@ class GhasedakClientTest extends TestCase
     {
         Http::fake([
             'SendOtpWithParams' => Http::response([
-                'isSuccess' => true,
+                'isSuccess'  => true,
                 'statusCode' => 200,
-                'message' => 'OTP sent successfully'
-            ], 200)
+                'message'    => 'OTP sent successfully',
+            ], 200),
         ]);
 
         $client = new GhasedakClient($this->baseApiUrl, $this->apiKey);
@@ -121,11 +122,12 @@ class GhasedakClientTest extends TestCase
 
         Http::assertSent(function ($request) {
             $body = $request->data();
-            return $request->url() === $this->baseApiUrl . '/SendOtpWithParams' &&
-                   $body['templateName'] === 'VerificationCode' &&
-                   $body['receptors'][0]['mobile'] === '09121234567' &&
-                   isset($body['param1']) &&
-                   $body['param1'] === '123456';
+
+            return $request->url() === $this->baseApiUrl.'/SendOtpWithParams'
+                   && 'VerificationCode' === $body['templateName']
+                   && '09121234567' === $body['receptors'][0]['mobile']
+                   && isset($body['param1'])
+                   && '123456' === $body['param1'];
         });
     }
 
@@ -133,10 +135,10 @@ class GhasedakClientTest extends TestCase
     {
         Http::fake([
             'SendOtpWithParams' => Http::response([
-                'isSuccess' => true,
+                'isSuccess'  => true,
                 'statusCode' => 200,
-                'message' => 'OTP sent successfully'
-            ], 200)
+                'message'    => 'OTP sent successfully',
+            ], 200),
         ]);
 
         $client = new GhasedakClient($this->baseApiUrl, $this->apiKey);
@@ -145,17 +147,18 @@ class GhasedakClientTest extends TestCase
             '09121234567',
             'John',
             '5000',
-            'Order#123'
+            'Order#123',
         );
 
         $this->assertTrue($response->successful());
 
         Http::assertSent(function ($request) {
             $body = $request->data();
-            return $body['templateName'] === 'OrderConfirmation' &&
-                   $body['param1'] === 'John' &&
-                   $body['param2'] === '5000' &&
-                   $body['param3'] === 'Order#123';
+
+            return 'OrderConfirmation' === $body['templateName']
+                   && 'John' === $body['param1']
+                   && '5000' === $body['param2']
+                   && 'Order#123' === $body['param3'];
         });
     }
 
@@ -163,10 +166,10 @@ class GhasedakClientTest extends TestCase
     {
         Http::fake([
             'SendOtpWithParams' => Http::response([
-                'isSuccess' => true,
+                'isSuccess'  => true,
                 'statusCode' => 200,
-                'message' => 'OTP sent successfully'
-            ], 200)
+                'message'    => 'OTP sent successfully',
+            ], 200),
         ]);
 
         $client = new GhasedakClient($this->baseApiUrl, $this->apiKey);
@@ -176,17 +179,18 @@ class GhasedakClientTest extends TestCase
             'param1',
             null,
             'param3',
-            null
+            null,
         );
 
         $this->assertTrue($response->successful());
 
         Http::assertSent(function ($request) {
             $body = $request->data();
-            return $body['param1'] === 'param1' &&
-                   !isset($body['param2']) &&
-                   $body['param3'] === 'param3' &&
-                   !isset($body['param4']);
+
+            return 'param1' === $body['param1']
+                   && !isset($body['param2'])
+                   && 'param3' === $body['param3']
+                   && !isset($body['param4']);
         });
     }
 
@@ -194,17 +198,26 @@ class GhasedakClientTest extends TestCase
     {
         Http::fake([
             'SendOtpWithParams' => Http::response([
-                'isSuccess' => true,
+                'isSuccess'  => true,
                 'statusCode' => 200,
-                'message' => 'OTP sent successfully'
-            ], 200)
+                'message'    => 'OTP sent successfully',
+            ], 200),
         ]);
 
         $client = new GhasedakClient($this->baseApiUrl, $this->apiKey);
         $response = $client->sendOtpWithParams(
             'Template',
             '09121234567',
-            'p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9', 'p10'
+            'p1',
+            'p2',
+            'p3',
+            'p4',
+            'p5',
+            'p6',
+            'p7',
+            'p8',
+            'p9',
+            'p10',
         );
 
         $this->assertTrue($response->successful());
@@ -216,6 +229,7 @@ class GhasedakClientTest extends TestCase
                     return false;
                 }
             }
+
             return true;
         });
     }
@@ -223,7 +237,7 @@ class GhasedakClientTest extends TestCase
     public function testConnectionTimeout()
     {
         Http::fake([
-            'GetAccountInformation' => Http::response([], 500)
+            'GetAccountInformation' => Http::response([], 500),
         ]);
 
         $client = new GhasedakClient($this->baseApiUrl, $this->apiKey);
@@ -238,10 +252,10 @@ class GhasedakClientTest extends TestCase
     {
         Http::fake([
             'SendOtpWithParams' => Http::response([
-                'isSuccess' => true,
+                'isSuccess'  => true,
                 'statusCode' => 200,
-                'message' => 'Success'
-            ], 200)
+                'message'    => 'Success',
+            ], 200),
         ]);
 
         $client = new GhasedakClient($this->baseApiUrl, $this->apiKey);
@@ -250,6 +264,7 @@ class GhasedakClientTest extends TestCase
         Http::assertSent(function ($request) {
             $body = $request->data();
             $clientRefId = $body['receptors'][0]['clientReferenceId'];
+
             return str_starts_with($clientRefId, '09121234567:');
         });
     }

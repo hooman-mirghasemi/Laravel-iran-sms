@@ -11,8 +11,6 @@ class VoiceCallManager extends Manager
 {
     /**
      * Create an instance of the avanak voice call sender driver.
-     *
-     * @return Avanak
      */
     protected function createAvanakDriver(): Avanak
     {
@@ -21,8 +19,6 @@ class VoiceCallManager extends Manager
 
     /**
      * Create an instance of the fake voice call sender driver.
-     *
-     * @return FakeSmsSender
      */
     protected function createFakeDriver(): FakeSmsSender
     {
@@ -31,8 +27,6 @@ class VoiceCallManager extends Manager
 
     /**
      * Get the default voice call driver name.
-     *
-     * @return string
      */
     public function getDefaultDriver(): string
     {
@@ -47,8 +41,6 @@ class VoiceCallManager extends Manager
      * Set the default sms driver name.
      *
      * @param string $name
-     *
-     * @return void
      */
     public function setDefaultDriver($name): void
     {

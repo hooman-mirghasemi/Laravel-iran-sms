@@ -2,8 +2,6 @@
 
 namespace HoomanMirghasemi\Sms\Exceptions;
 
-use Exception;
-
-class InvalidMessageException extends Exception
+class InvalidMessageException extends \Exception
 {
 }
