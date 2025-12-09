@@ -23,7 +23,7 @@ class SmsOnline extends Driver
      */
     public function send(): bool
     {
-        if (!$this->serviceActive) {
+        if (! $this->serviceActive) {
             parent::failedConnectToProvider();
 
             return false;
@@ -56,7 +56,7 @@ class SmsOnline extends Driver
      */
     public function getBalance(): string
     {
-        if (!$this->serviceActive) {
+        if (! $this->serviceActive) {
             return 'ماژول پیامک آنلاین اس ام اس برنامه غیر فعال می باشد.';
         }
 

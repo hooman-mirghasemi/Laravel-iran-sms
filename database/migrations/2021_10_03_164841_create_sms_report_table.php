@@ -6,7 +6,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 // migrated up don't touch
-return new class() extends Migration {
+return new class extends Migration {
     /**
      * Run the migrations.
      */

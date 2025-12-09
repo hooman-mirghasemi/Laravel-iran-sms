@@ -24,7 +24,7 @@ class Magfa extends Driver
      */
     public function send(): bool
     {
-        if (!$this->serviceActive) {
+        if (! $this->serviceActive) {
             parent::failedConnectToProvider();
 
             return false;
@@ -47,7 +47,7 @@ class Magfa extends Driver
      */
     public function getBalance(): string
     {
-        if (!$this->serviceActive) {
+        if (! $this->serviceActive) {
             return 'وب سرویس مگفا با مشکل مواجه شده.';
         }
 
