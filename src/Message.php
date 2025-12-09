@@ -53,7 +53,7 @@ class Message implements MessageContract
      */
     public function usesTemplate(): bool
     {
-        return ! is_null($this->template['identifier']);
+        return !is_null($this->template['identifier']);
     }
 
     /**
