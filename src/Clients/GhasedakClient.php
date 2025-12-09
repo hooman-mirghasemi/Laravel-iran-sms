@@ -16,7 +16,7 @@ class GhasedakClient
     public function __construct(string $baseApiUrl, string $apiKey)
     {
         $this->http = Http::baseUrl($baseApiUrl)
-            ->withHeader('ApiKey', $apiKey)
+            ->withHeaders(['ApiKey' => $apiKey])
             ->accept('text/plain')
             ->timeout(20) // 20 seconds wait for client response
             ->connectTimeout(20) // 20 seconds wait for connection to third party service
