@@ -2,15 +2,13 @@
 
 namespace HoomanMirghasemi\Sms\Drivers;
 
-use Exception;
 use HoomanMirghasemi\Sms\Abstracts\Driver;
 use Illuminate\Support\Facades\Log;
 use SoapClient;
-use SoapFault;
 
 class Avanak extends Driver
 {
-    private SoapClient $client;
+    private \SoapClient $client;
 
     private array $params;
 
@@ -30,8 +28,6 @@ class Avanak extends Driver
      * Send voice call method for Avanak.
      *
      * This method send sms and save log to db.
-     *
-     * @return bool
      */
     public function send(): bool
     {
@@ -57,7 +53,7 @@ class Avanak extends Driver
                 $this->webserviceResponse = 'Error Code : '.$response->QuickSendWithTTSResult;
                 $this->success = false;
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->webserviceResponse = 'code:'.$e->getCode().' message: '.$e->getMessage();
             $this->success = false;
         }
@@ -67,8 +63,6 @@ class Avanak extends Driver
 
     /**
      * Return the remaining balance of avanak.
-     *
-     * @return string
      */
     public function getBalance(): string
     {
@@ -80,21 +74,19 @@ class Avanak extends Driver
             $response = $this->client->GetCredit($this->params);
 
             return $response->GetCreditResult;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return 'message:'.$e->getMessage().' code: '.$e->getCode();
         }
     }
 
     /**
      * Make SoapClient object and connect to avanak wsdl webservices.
-     *
-     * @return void
      */
     private function tryConnectToProvider(): void
     {
         try {
-            $this->client = new SoapClient(data_get($this->settings, 'wsdl_url'), ['trace' => 1, 'encoding' => 'UTF-8']);
-        } catch (SoapFault $soapFault) {
+            $this->client = new \SoapClient(data_get($this->settings, 'wsdl_url'), ['trace' => 1, 'encoding' => 'UTF-8']);
+        } catch (\SoapFault $soapFault) {
             Log::error('avanak voice call code: '.$soapFault->getCode().' message: '.$soapFault->getMessage());
             $this->serviceActive = false;
         }

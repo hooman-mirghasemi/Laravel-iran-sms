@@ -16,8 +16,6 @@ class SmsProvider extends ServiceProvider
 {
     /**
      * Boot the application events.
-     *
-     * @return void
      */
     public function boot(): void
     {
@@ -26,8 +24,6 @@ class SmsProvider extends ServiceProvider
 
     /**
      * Register the service provider.
-     *
-     * @return void
      */
     public function register(): void
     {
@@ -36,7 +32,7 @@ class SmsProvider extends ServiceProvider
         $this->app->register(RouteServiceProvider::class);
         $this->app->register(EventServiceProvider::class);
 
-        /**
+        /*
          * Bind to service container.
          */
         $this->app->singleton('sms', SmsManager::class);
@@ -66,21 +62,16 @@ class SmsProvider extends ServiceProvider
             return new Avanak($config);
         });
 
+        $this->app->bind(Ghasedak::class, function () {
+            return new Ghasedak(config('sms.drivers.ghasedak') ?? []);
+        });
+
         if (class_exists(\Kavenegar\KavenegarApi::class)) {
             $this->app->bind(Kavenegar::class, function () {
                 $config = config('sms.drivers.kavenegar') ?? [];
                 $kavenegarApi = new \Kavenegar\KavenegarApi($config['apiKey']);
 
                 return new Kavenegar($config, $kavenegarApi);
-            });
-        }
-
-        if (class_exists(\Ghasedak\GhasedaksmsApi::class)) {
-            $this->app->bind(Ghasedak::class, function () {
-                $config = config('sms.drivers.ghasedak') ?? [];
-                $ghasedakApi = new \Ghasedak\GhasedaksmsApi($config['apiKey']);
-
-                return new Ghasedak($config, $ghasedakApi);
             });
         }
     }
@@ -114,7 +105,7 @@ class SmsProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(
             __DIR__.'/../../config/sms.php',
-            'sms'
+            'sms',
         );
 
         $this->publishes([

@@ -8,8 +8,6 @@ class FakeSmsSender extends Driver
 {
     /**
      * The Faker sms send sms success of fail.
-     *
-     * @var bool
      */
     public static bool $successSend = true;
 
@@ -22,8 +20,6 @@ class FakeSmsSender extends Driver
      * Send sms method for Magfa.
      *
      * This method send sms and save log to db.
-     *
-     * @return bool
      */
     public function send(): bool
     {
@@ -40,8 +36,6 @@ class FakeSmsSender extends Driver
 
     /**
      * Return fake balance :D.
-     *
-     * @return string
      */
     public function getBalance(): string
     {

@@ -40,7 +40,7 @@ class Kavenegar extends Driver
                     $identifier,
                     null,
                     $token10,
-                    $token20
+                    $token20,
                 );
             } else {
                 $result = $this->kavenegarApi->Send(null, $this->recipient, $this->message->toString());
