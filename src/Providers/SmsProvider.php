@@ -66,21 +66,16 @@ class SmsProvider extends ServiceProvider
             return new Avanak($config);
         });
 
+        $this->app->bind(Ghasedak::class, function () {
+            return new Ghasedak(config('sms.drivers.ghasedak') ?? []);
+        });
+
         if (class_exists(\Kavenegar\KavenegarApi::class)) {
             $this->app->bind(Kavenegar::class, function () {
                 $config = config('sms.drivers.kavenegar') ?? [];
                 $kavenegarApi = new \Kavenegar\KavenegarApi($config['apiKey']);
 
                 return new Kavenegar($config, $kavenegarApi);
-            });
-        }
-
-        if (class_exists(\Ghasedak\GhasedaksmsApi::class)) {
-            $this->app->bind(Ghasedak::class, function () {
-                $config = config('sms.drivers.ghasedak') ?? [];
-                $ghasedakApi = new \Ghasedak\GhasedaksmsApi($config['apiKey']);
-
-                return new Ghasedak($config, $ghasedakApi);
             });
         }
     }

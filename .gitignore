@@ -1,6 +1,10 @@
 /vendor/
 /.idea
 /.phpunit.cache/
+clover.xml
+coverage.cov
+coverage.txt
+/coverage-report
 .phpunit.result.cache
 phpunit.xml.bak
 composer.lock
