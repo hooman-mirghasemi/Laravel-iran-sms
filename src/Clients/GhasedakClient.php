@@ -4,8 +4,8 @@ namespace HoomanMirghasemi\Sms\Clients;
 
 use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Http\Client\ConnectionException;
-use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
@@ -21,10 +21,10 @@ class GhasedakClient
             ->timeout(20); // 20 seconds wait for response
     }
 
-
     /**
-     * @return PromiseInterface|Response
      * @throws ConnectionException|RequestException
+     *
+     * @return PromiseInterface|Response
      */
     public function getAccountInformation(): PromiseInterface|Response
     {
@@ -35,15 +35,17 @@ class GhasedakClient
      * @param string $lineNumber
      * @param string $receptor
      * @param string $message
-     * @return PromiseInterface|Response
+     *
      * @throws ConnectionException|RequestException
+     *
+     * @return PromiseInterface|Response
      */
     public function sendSingleSMS(string $lineNumber, string $receptor, string $message): PromiseInterface|Response
     {
         return $this->http->post('SendSingleSMS', [
             'lineNumber' => $lineNumber,
-            'receptor' => $receptor,
-            'message' => $message
+            'receptor'   => $receptor,
+            'message'    => $message,
         ]);
     }
 
@@ -52,14 +54,16 @@ class GhasedakClient
         $parameters = [];
 
         foreach ($params as $index => $param) {
-            if ( $param == null ) { continue; }
-            $parameters["param" . $index + 1] = $param;
+            if ($param == null) {
+                continue;
+            }
+            $parameters['param'.$index + 1] = $param;
         }
 
         return $this->http->post('SendOtpWithParams', array_merge([
             'receptors' => [[
-                'mobile' => $receptor,
-                'clientReferenceId' => "$receptor:" . time()
+                'mobile'            => $receptor,
+                'clientReferenceId' => "$receptor:".time(),
             ]],
             'templateName' => $templateName,
         ], $parameters));
