@@ -106,7 +106,7 @@ class GhasedakTest extends TestCase
 
         $this->assertFalse($result);
         $this->assertFalse($ghasedak->getResult());
-        $this->assertStringContainsString('Invalid API key', $ghasedak->getWebServiceResponce());
+        $this->assertStringContainsString('HTTP request failed with status: 401', $ghasedak->getWebServiceResponce());
 
         Event::assertDispatched(SmsSentEvent::class);
     }
@@ -189,7 +189,7 @@ class GhasedakTest extends TestCase
         $ghasedak = new Ghasedak($this->config);
         $balance = $ghasedak->getBalance();
 
-        $this->assertStringContainsString('Unauthorized', $balance);
+        $this->assertStringContainsString('HTTP request failed with status: 401', $balance);
         $this->assertStringContainsString('message:', $balance);
     }
 
@@ -351,7 +351,7 @@ class GhasedakTest extends TestCase
             ->send();
 
         $this->assertFalse($result);
-        $this->assertStringContainsString('Invalid template', $ghasedak->getWebServiceResponce());
+        $this->assertStringContainsString('HTTP request failed with status: 400', $ghasedak->getWebServiceResponce());
     }
 
     public function testSendOtpTemplateFailureWithSuccessfulHttpButFailedResponse()

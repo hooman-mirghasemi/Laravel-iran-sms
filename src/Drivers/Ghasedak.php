@@ -34,7 +34,13 @@ class Ghasedak extends Driver
         }
 
         try {
-            $accountInfo = $this->ghasedakClient->getAccountInformation()->json();
+            $response = $this->ghasedakClient->getAccountInformation();
+
+            if ($response->failed()) {
+                throw new Exception("HTTP request failed with status: " . $response->status(), $response->status());
+            }
+
+            $accountInfo = $response->json();
 
             if (!$accountInfo['isSuccess']) {
                 throw new Exception("Ghasedak responded with an error: " . $accountInfo['message'], $accountInfo['statusCode']);
@@ -75,6 +81,10 @@ class Ghasedak extends Driver
                     $params[9] ?? null,
                 );
 
+                if ($response->failed()) {
+                    throw new Exception("HTTP request failed with status: " . $response->status(), $response->status());
+                }
+
                 $result = $response->json();
 
                 if (!$result['isSuccess']) {
@@ -90,6 +100,10 @@ class Ghasedak extends Driver
                 $response = $this->ghasedakClient->sendSingleSMS(
                     $this->lineNumber, $this->recipient, $this->message->toString()
                 );
+
+                if ($response->failed()) {
+                    throw new Exception("HTTP request failed with status: " . $response->status(), $response->status());
+                }
 
                 $result = $response->json();
 

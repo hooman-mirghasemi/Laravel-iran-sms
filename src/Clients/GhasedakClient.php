@@ -18,10 +18,7 @@ class GhasedakClient
         $this->http = Http::baseUrl($baseApiUrl)
             ->withHeaders(['ApiKey' => $apiKey])
             ->accept('text/plain')
-            ->timeout(20) // 20 seconds wait for response
-            ->throw();  // If you get error throw a exception from type below
-                        // Illuminate\Http\Client\ConnectionException
-                        // Illuminate\Http\Client\RequestException
+            ->timeout(20); // 20 seconds wait for response
     }
 
 

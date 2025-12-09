@@ -49,9 +49,10 @@ class GhasedakClientTest extends TestCase
         ]);
 
         $client = new GhasedakClient($this->baseApiUrl, $this->apiKey);
+        $response = $client->getAccountInformation();
 
-        $this->expectException(\Illuminate\Http\Client\RequestException::class);
-        $client->getAccountInformation();
+        $this->assertTrue($response->failed());
+        $this->assertEquals(401, $response->status());
     }
 
     public function testSendSingleSMSSuccess()
@@ -97,9 +98,10 @@ class GhasedakClientTest extends TestCase
         ]);
 
         $client = new GhasedakClient($this->baseApiUrl, $this->apiKey);
+        $response = $client->sendSingleSMS('invalid', '09121234567', 'Test');
 
-        $this->expectException(\Illuminate\Http\Client\RequestException::class);
-        $client->sendSingleSMS('invalid', '09121234567', 'Test');
+        $this->assertTrue($response->failed());
+        $this->assertEquals(400, $response->status());
     }
 
     public function testSendOtpWithParamsOneParameter()
@@ -225,9 +227,11 @@ class GhasedakClientTest extends TestCase
         ]);
 
         $client = new GhasedakClient($this->baseApiUrl, $this->apiKey);
+        $response = $client->getAccountInformation();
 
-        $this->expectException(\Illuminate\Http\Client\RequestException::class);
-        $client->getAccountInformation();
+        $this->assertTrue($response->failed());
+        $this->assertTrue($response->serverError());
+        $this->assertEquals(500, $response->status());
     }
 
     public function testClientReferenceIdFormat()
