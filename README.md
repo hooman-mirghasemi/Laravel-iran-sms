@@ -60,8 +60,6 @@ Note: to use magfa/sms online/avanak you should install php ext-soap.
 **Important:** Some drivers require additional packages. Install the driver package you need:
 
 ```bash
-# For Ghasedak driver
-composer require ghasedaksms/php
 
 # For Kavenegar driver
 composer require kavenegar/laravel
