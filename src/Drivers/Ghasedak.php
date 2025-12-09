@@ -2,7 +2,6 @@
 
 namespace HoomanMirghasemi\Sms\Drivers;
 
-use Exception;
 use HoomanMirghasemi\Sms\Abstracts\Driver;
 use HoomanMirghasemi\Sms\Clients\GhasedakClient;
 
@@ -14,21 +13,21 @@ class Ghasedak extends Driver
 
     public function __construct(
         protected array $settings,
-        private ?string $lineNumber = null
+        private ?string $lineNumber = null,
     ) {
-        if (!isset($this->lineNumber) && isset($this->settings['from'])) {
+        if (! isset($this->lineNumber) && isset($this->settings['from'])) {
             $this->lineNumber = $this->settings['from'];
         }
 
         $this->ghasedakClient = new GhasedakClient(
             $this->settings['base_api_url'] ?? 'https://gateway.ghasedak.me/rest/api/v1/WebService',
-            $this->settings['apiKey'] ?? ''
+            $this->settings['apiKey'] ?? '',
         );
     }
 
     public function getBalance(): string
     {
-        if (!$this->serviceActive) {
+        if (! $this->serviceActive) {
             parent::failedConnectToProvider();
 
             return '';
@@ -38,24 +37,24 @@ class Ghasedak extends Driver
             $response = $this->ghasedakClient->getAccountInformation();
 
             if ($response->failed()) {
-                throw new Exception('HTTP request failed with status: '.$response->status(), $response->status());
+                throw new \Exception('HTTP request failed with status: '.$response->status(), $response->status());
             }
 
             $accountInfo = $response->json();
 
-            if (!$accountInfo['isSuccess']) {
-                throw new Exception('Ghasedak responded with an error: '.$accountInfo['message'], $accountInfo['statusCode']);
+            if (! $accountInfo['isSuccess']) {
+                throw new \Exception('Ghasedak responded with an error: '.$accountInfo['message'], $accountInfo['statusCode']);
             }
 
             return $accountInfo['data']['credit'] ?? '';
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return 'message:'.$e->getMessage().' code: '.$e->getCode();
         }
     }
 
     public function send(): bool
     {
-        if (!$this->serviceActive) {
+        if (! $this->serviceActive) {
             parent::failedConnectToProvider();
 
             return false;
@@ -83,13 +82,13 @@ class Ghasedak extends Driver
                 );
 
                 if ($response->failed()) {
-                    throw new Exception('HTTP request failed with status: '.$response->status(), $response->status());
+                    throw new \Exception('HTTP request failed with status: '.$response->status(), $response->status());
                 }
 
                 $result = $response->json();
 
-                if (!$result['isSuccess']) {
-                    throw new Exception('Ghasedak responded with an error: '.$result['message'], $result['statusCode']);
+                if (! $result['isSuccess']) {
+                    throw new \Exception('Ghasedak responded with an error: '.$result['message'], $result['statusCode']);
                 }
 
                 $this->success = true;
@@ -99,17 +98,17 @@ class Ghasedak extends Driver
                 $response = $this->ghasedakClient->sendSingleSMS(
                     $this->lineNumber,
                     $this->recipient,
-                    $this->message->toString()
+                    $this->message->toString(),
                 );
 
                 if ($response->failed()) {
-                    throw new Exception('HTTP request failed with status: '.$response->status(), $response->status());
+                    throw new \Exception('HTTP request failed with status: '.$response->status(), $response->status());
                 }
 
                 $result = $response->json();
 
-                if (!$result['isSuccess']) {
-                    throw new Exception('Ghasedak responded with an error: '.$result['message'], $result['statusCode']);
+                if (! $result['isSuccess']) {
+                    throw new \Exception('Ghasedak responded with an error: '.$result['message'], $result['statusCode']);
                 }
 
                 $this->success = true;
@@ -118,7 +117,7 @@ class Ghasedak extends Driver
             }
 
             $this->webserviceResponse = json_encode($result);
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             $this->webserviceResponse = $exception->getMessage();
             $this->success = false;
         }

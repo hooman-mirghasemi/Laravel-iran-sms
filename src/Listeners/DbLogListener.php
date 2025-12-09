@@ -12,8 +12,6 @@ class DbLogListener
      * Handle the event.
      *
      * @param object $event
-     *
-     * @return void
      */
     public function handle(SmsEvent $event): void
     {
@@ -22,8 +20,6 @@ class DbLogListener
 
     /**
      * This method should call in all driver send method in last line.
-     *
-     * @return void
      */
     protected function saveLogInDb(Driver $smsDriver): void
     {

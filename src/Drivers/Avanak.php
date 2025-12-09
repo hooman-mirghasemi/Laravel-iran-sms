@@ -2,15 +2,13 @@
 
 namespace HoomanMirghasemi\Sms\Drivers;
 
-use Exception;
 use HoomanMirghasemi\Sms\Abstracts\Driver;
 use Illuminate\Support\Facades\Log;
 use SoapClient;
-use SoapFault;
 
 class Avanak extends Driver
 {
-    private SoapClient $client;
+    private \SoapClient $client;
 
     private array $params;
 
@@ -30,19 +28,17 @@ class Avanak extends Driver
      * Send voice call method for Avanak.
      *
      * This method send sms and save log to db.
-     *
-     * @return bool
      */
     public function send(): bool
     {
-        if (!$this->serviceActive) {
+        if (! $this->serviceActive) {
             parent::failedConnectToProvider();
 
             return false;
         }
         $this->params['text'] = $this->getMessage();
         $this->params['number'] = $this->recipient;
-        if (!str_starts_with($this->params['number'], '+98')) {
+        if (! str_starts_with($this->params['number'], '+98')) {
             return false;
         }
         // for sending to avanak change number format
@@ -57,7 +53,7 @@ class Avanak extends Driver
                 $this->webserviceResponse = 'Error Code : '.$response->QuickSendWithTTSResult;
                 $this->success = false;
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->webserviceResponse = 'code:'.$e->getCode().' message: '.$e->getMessage();
             $this->success = false;
         }
@@ -67,12 +63,10 @@ class Avanak extends Driver
 
     /**
      * Return the remaining balance of avanak.
-     *
-     * @return string
      */
     public function getBalance(): string
     {
-        if (!$this->serviceActive) {
+        if (! $this->serviceActive) {
             return 'وب سرویس آوانک با مشکل مواجه شده.';
         }
 
@@ -80,21 +74,19 @@ class Avanak extends Driver
             $response = $this->client->GetCredit($this->params);
 
             return $response->GetCreditResult;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return 'message:'.$e->getMessage().' code: '.$e->getCode();
         }
     }
 
     /**
      * Make SoapClient object and connect to avanak wsdl webservices.
-     *
-     * @return void
      */
     private function tryConnectToProvider(): void
     {
         try {
-            $this->client = new SoapClient(data_get($this->settings, 'wsdl_url'), ['trace' => 1, 'encoding' => 'UTF-8']);
-        } catch (SoapFault $soapFault) {
+            $this->client = new \SoapClient(data_get($this->settings, 'wsdl_url'), ['trace' => 1, 'encoding' => 'UTF-8']);
+        } catch (\SoapFault $soapFault) {
             Log::error('avanak voice call code: '.$soapFault->getCode().' message: '.$soapFault->getMessage());
             $this->serviceActive = false;
         }

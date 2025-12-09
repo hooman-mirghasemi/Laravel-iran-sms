@@ -2,16 +2,14 @@
 
 namespace HoomanMirghasemi\Sms\Drivers;
 
-use Exception;
 use HoomanMirghasemi\Sms\Abstracts\Driver;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use SoapClient;
-use SoapFault;
 
 class Magfa extends Driver
 {
-    private SoapClient $soapClient;
+    private \SoapClient $soapClient;
 
     public function __construct(protected array $settings)
     {
@@ -23,18 +21,16 @@ class Magfa extends Driver
      * Send sms method for Magfa.
      *
      * This method send sms and save log to db.
-     *
-     * @return bool
      */
     public function send(): bool
     {
-        if (!$this->serviceActive) {
+        if (! $this->serviceActive) {
             parent::failedConnectToProvider();
 
             return false;
         }
         $response = $this->soapClient->send([$this->getMessage()], [$this->from], [$this->recipient]);
-        if ($response->status == 0) {
+        if (0 == $response->status) {
             $this->webserviceResponse = "Message has been successfully sent ; MessageId : {$response->messages->id}";
             $this->success = true;
         }
@@ -48,12 +44,10 @@ class Magfa extends Driver
 
     /**
      * Return the remaining balance of magfa.
-     *
-     * @return string
      */
     public function getBalance(): string
     {
-        if (!$this->serviceActive) {
+        if (! $this->serviceActive) {
             return 'وب سرویس مگفا با مشکل مواجه شده.';
         }
 
@@ -61,27 +55,25 @@ class Magfa extends Driver
             $response = $this->soapClient->balance();
 
             return $response->balance;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return 'message:'.$e->getMessage().' code: '.$e->getCode();
         }
     }
 
     /**
      * Make SoapClient object and connect to magfa wsdl webservices.
-     *
-     * @return void
      */
     private function tryConnectToProvider(): void
     {
         try {
-            $this->soapClient = new SoapClient(data_get($this->settings, 'wsdl_url'), [
+            $this->soapClient = new \SoapClient(data_get($this->settings, 'wsdl_url'), [
                 'login'       => data_get($this->settings, 'username').'/'.data_get($this->settings, 'domain'),
                 'password'    => data_get($this->settings, 'password'),
                 'cache_wsdl'  => WSDL_CACHE_NONE, // -No WSDL Cache
                 'compression' => (SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP | 5), // -Compression *
                 'trace'       => App::environment(['local', 'staging', 'testing']), // -Optional (debug)
             ]);
-        } catch (SoapFault $soapFault) {
+        } catch (\SoapFault $soapFault) {
             Log::error('magfa sms code: '.$soapFault->getCode().' message: '.$soapFault->getMessage());
             $this->serviceActive = false;
         }
@@ -89,8 +81,6 @@ class Magfa extends Driver
 
     /**
      * Return error messages for SmsMagfa.
-     *
-     * @return array
      */
     private function getErrors(): array
     {

@@ -2,14 +2,13 @@
 
 namespace HoomanMirghasemi\Sms\Drivers;
 
-use Exception;
 use HoomanMirghasemi\Sms\Abstracts\Driver;
 use Illuminate\Support\Facades\Log;
 use SoapClient;
 
 class SmsOnline extends Driver
 {
-    private SoapClient $soapClient;
+    private \SoapClient $soapClient;
 
     public function __construct(protected array $settings)
     {
@@ -21,12 +20,10 @@ class SmsOnline extends Driver
      * Send sms method for OnlineSms.
      *
      * This method send sms and save log to db.
-     *
-     * @return bool
      */
     public function send(): bool
     {
-        if (!$this->serviceActive) {
+        if (! $this->serviceActive) {
             parent::failedConnectToProvider();
 
             return false;
@@ -42,7 +39,7 @@ class SmsOnline extends Driver
             'recId'    => [0],
             'status'   => [0],
         ]);
-        if ($response->SendSmsResult != 1) {
+        if (1 != $response->SendSmsResult) {
             $this->webserviceResponse = 'An error occured';
             $this->webserviceResponse .= 'Error Code : '.$this->getErrors()[$response->SendSmsResult];
             $this->success = false;
@@ -56,12 +53,10 @@ class SmsOnline extends Driver
 
     /**
      * Return the remaining balance of smsonline.
-     *
-     * @return string
      */
     public function getBalance(): string
     {
-        if (!$this->serviceActive) {
+        if (! $this->serviceActive) {
             return 'ماژول پیامک آنلاین اس ام اس برنامه غیر فعال می باشد.';
         }
 
@@ -72,15 +67,13 @@ class SmsOnline extends Driver
             ]);
 
             return (int) ceil($getCreditResult->GetCreditResult);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return 'message:'.$e->getMessage().' code: '.$e->getCode();
         }
     }
 
     /**
      * Return error messages for SmsMagfa.
-     *
-     * @return array
      */
     private function getErrors(): array
     {
@@ -102,13 +95,11 @@ class SmsOnline extends Driver
 
     /**
      * Make SoapClient object and connect to magfa wsdl webservices.
-     *
-     * @return void
      */
     private function tryConnectToProvider(): void
     {
         try {
-            $this->soapClient = new SoapClient(data_get($this->settings, 'wsdl_url'));
+            $this->soapClient = new \SoapClient(data_get($this->settings, 'wsdl_url'));
         } catch (\SoapFault $soapFault) {
             Log::error('onlinesms sms code: '.$soapFault->getCode().' message: '.$soapFault->getMessage());
             $this->serviceActive = false;

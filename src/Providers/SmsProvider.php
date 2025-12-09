@@ -16,8 +16,6 @@ class SmsProvider extends ServiceProvider
 {
     /**
      * Boot the application events.
-     *
-     * @return void
      */
     public function boot(): void
     {
@@ -26,8 +24,6 @@ class SmsProvider extends ServiceProvider
 
     /**
      * Register the service provider.
-     *
-     * @return void
      */
     public function register(): void
     {
@@ -36,7 +32,7 @@ class SmsProvider extends ServiceProvider
         $this->app->register(RouteServiceProvider::class);
         $this->app->register(EventServiceProvider::class);
 
-        /**
+        /*
          * Bind to service container.
          */
         $this->app->singleton('sms', SmsManager::class);
@@ -109,7 +105,7 @@ class SmsProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(
             __DIR__.'/../../config/sms.php',
-            'sms'
+            'sms',
         );
 
         $this->publishes([

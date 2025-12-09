@@ -12,8 +12,6 @@ abstract class Driver implements DriverContract
 {
     /**
      * If it can not connect to provider this get false value.
-     *
-     * @var bool
      */
     protected bool $serviceActive = true;
 
@@ -33,31 +31,21 @@ abstract class Driver implements DriverContract
 
     /**
      * Message.
-     *
-     * @var Message|string
      */
     protected Message|string $message;
 
     /**
      * The response of driver webservice of sending message.
-     *
-     * @var string
      */
     protected string $webserviceResponse;
 
     /**
      * Result of sending message.
-     *
-     * @var bool
      */
     protected ?bool $success = null;
 
     /**
      * Add recipient (phone or mobile numbers).
-     *
-     * @param string $recipient
-     *
-     * @return self
      */
     public function to(string $recipient): self
     {
@@ -68,8 +56,6 @@ abstract class Driver implements DriverContract
 
     /**
      * Get recipient mobile number.
-     *
-     * @return string
      */
     public function getRecipient(): string
     {
@@ -78,8 +64,6 @@ abstract class Driver implements DriverContract
 
     /**
      * Get sender number (from attribute).
-     *
-     * @return string
      */
     public function getSenderNumber(): string
     {
@@ -90,8 +74,6 @@ abstract class Driver implements DriverContract
      * Set related message.
      *
      * @param Message $message
-     *
-     * @return self
      */
     public function message(Message|string $message): self
     {
@@ -102,8 +84,6 @@ abstract class Driver implements DriverContract
 
     /**
      * Get message in string.
-     *
-     * @return string
      */
     public function getMessage(): string
     {
@@ -116,8 +96,6 @@ abstract class Driver implements DriverContract
 
     /**
      * Get result of sending message is successful or not.
-     *
-     * @return bool
      */
     public function getResult(): bool
     {
@@ -126,8 +104,6 @@ abstract class Driver implements DriverContract
 
     /**
      * Get webservice response.
-     *
-     * @return string
      */
     public function getWebServiceResponce(): string
     {
@@ -139,12 +115,10 @@ abstract class Driver implements DriverContract
      * This fire SmsSentEvent.
      *
      * @see SmsSentEvent
-     *
-     * @return bool
      */
     public function send(): bool
     {
-        if ($this->success === null) {
+        if (null === $this->success) {
             throw new \BadMethodCallException('Abstract driver send method should only call in end of drivers with result of send');
         }
 

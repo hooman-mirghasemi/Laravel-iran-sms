@@ -15,8 +15,6 @@ class Message implements MessageContract
 
     /**
      * Template options.
-     *
-     * @var array
      */
     protected array $template = [
         'identifier' => null,
@@ -25,8 +23,6 @@ class Message implements MessageContract
 
     /**
      * Message constructor.
-     *
-     * @param string $message
      */
     public function __construct(string $message)
     {
@@ -35,8 +31,6 @@ class Message implements MessageContract
 
     /**
      * Retrieve string format of message.
-     *
-     * @return string
      */
     public function toString(): string
     {
@@ -45,11 +39,6 @@ class Message implements MessageContract
 
     /**
      * Retrieve string format of message.
-     *
-     * @param string $templateIdentifier
-     * @param array  $params
-     *
-     * @return self
      */
     public function useTemplateIfSupports(string $templateIdentifier, array $params = []): self
     {
@@ -64,13 +53,11 @@ class Message implements MessageContract
      */
     public function usesTemplate(): bool
     {
-        return !is_null($this->template['identifier']);
+        return ! is_null($this->template['identifier']);
     }
 
     /**
      * Retrieve template options.
-     *
-     * @return array
      */
     public function getTemplate(): array
     {

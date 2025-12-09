@@ -14,8 +14,6 @@ class SmsManager extends Manager
 {
     /**
      * Create an instance of the nexmo sms sender driver.
-     *
-     * @return Kavenegar
      */
     protected function createKavenegarDriver(): Kavenegar
     {
@@ -24,8 +22,6 @@ class SmsManager extends Manager
 
     /**
      * Create an instance of the fake sms sender driver.
-     *
-     * @return FakeSmsSender
      */
     protected function createFakeDriver(): FakeSmsSender
     {
@@ -54,8 +50,6 @@ class SmsManager extends Manager
 
     /**
      * Create an instance of the ghasedak sms sender driver.
-     *
-     * @return Ghasedak
      */
     protected function createGhasedakDriver(): Ghasedak
     {
@@ -64,8 +58,6 @@ class SmsManager extends Manager
 
     /**
      * Get the default sms driver name.
-     *
-     * @return string
      */
     public function getDefaultDriver(): string
     {
@@ -78,10 +70,6 @@ class SmsManager extends Manager
 
     /**
      * Set the default sms driver name.
-     *
-     * @param string $name
-     *
-     * @return void
      */
     public function setDefaultDriver(string $name): void
     {

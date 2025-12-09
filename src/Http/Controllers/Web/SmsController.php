@@ -14,12 +14,10 @@ class SmsController extends Controller
     /**
      * Show sms in paginated list.
      * This page only use for develop.
-     *
-     * @return Factory|View|Application
      */
     public function index(): Factory|View|Application
     {
-        /**
+        /*
          * Action information.
          *
          * @get(/sms/get-sms-list)
