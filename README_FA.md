@@ -49,8 +49,6 @@
 **مهم:** برخی درایورها نیاز به پکیج‌های اضافی دارند. پکیج درایور مورد نیاز خود را نصب کنید:
 
 ```bash
-# برای درایور قاصدک
-composer require ghasedaksms/php
 
 # برای درایور کاوه‌نگار
 composer require kavenegar/laravel
