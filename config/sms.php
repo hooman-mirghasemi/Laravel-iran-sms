@@ -53,9 +53,9 @@ return [
             'wsdl_url' => 'http://portal.avanak.ir/webservice3.asmx?WSDL',
         ],
         'ghasedak' => [
-            'base_api_url' => env('GHASEDAK_BASE_API_URL', 'https://gateway.ghasedak.me/rest/api/v1/WebService'),
-            'apiKey'   => env('GHASEDAK_API_KEY'),
-            'from'     => env('GHASEDAK_SENDER_NUMBER'),
+            'base_api_url'  => env('GHASEDAK_BASE_API_URL', 'https://gateway.ghasedak.me/rest/api/v1/WebService'),
+            'apiKey'        => env('GHASEDAK_API_KEY'),
+            'from'          => env('GHASEDAK_SENDER_NUMBER'),
         ],
     ],
     'dont_show_sms_list_page_condition' => env(
